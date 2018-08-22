@@ -12,7 +12,6 @@ app.on('ready', createWindow);*/
 // const {app, BrowserWindow, Menu, Tray} = require('electron');
 const path = require('path');
 const electron = require('electron')
-const ipc = electron.ipcMain
 const app = electron.app
 const Menu = electron.Menu
 const Tray = electron.Tray
