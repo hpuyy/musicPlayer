@@ -26,6 +26,7 @@
     "find-up": "^2.1.0",
     "mime-db": "^1.36.0",
     "minimist": "0.0.8",
+    "nedb": "^1.8.0",
     "node-sass": "^4.9.3",
     "path-exists": "^3.0.0",
     "pify": "^3.0.0",

@@ -60,7 +60,7 @@ function createWindow () {
   ];
 
   //系统托盘图标目录
-  appTray = new Tray(path.join(__static, 'icon.ico'));//app.ico是app目录下的ico文件
+  appTray = new Tray(path.join(__static, 'logo.png'));//app.ico是app目录下的ico文件
 
   //图标的上下文菜单
   const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
