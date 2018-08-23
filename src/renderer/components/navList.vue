@@ -1,21 +1,29 @@
 <template>
   <div class="nav-list">
-    <ul>
-      <li class="nav-list-open"><div class="icon-open">&#xe667;</div></li>
-      <li><div class="icon-search">&#xe63b;</div>搜索</li>
-      <li class="checked"><div class="icon-music">&#xe680;</div>发现音乐 </li>
-      <li><div class="icon-mv">&#xe604;</div>MV</li>
-      <li><div class="icon-fri">&#xe61a;</div>朋友</li>
-    </ul>
-    <ul>
-      <li class="nav-list-title">我的音乐</li>
-      <li><div class="icon-local">&#xe605;</div>本地音乐</li>
-      <li><div class="icon-down">&#xe63a;</div>下载管理</li>
-      <li><div class="icon-recent">&#xe661;</div>最近播放</li>
-      <li><div class="icon-cloud">&#xe654;</div>我的音乐云盘</li>
-      <li><div class="icon-fm">&#xe626;</div>我的电台</li>
-      <li><div class="icon-collect">&#xe63c;</div>我的收藏</li>
-    </ul>
+    <div class="nav-list-bd">
+      <ul>
+        <li class="nav-list-open"><div class="icon-open">&#xe667;</div></li>
+        <li><div class="icon-search">&#xe63b;</div>搜索</li>
+        <li class="checked"><div class="icon-music">&#xe680;</div>发现音乐 </li>
+        <li><div class="icon-mv">&#xe604;</div>MV</li>
+        <li><div class="icon-fri">&#xe61a;</div>朋友</li>
+      </ul>
+      <ul>
+        <li class="nav-list-title">我的音乐</li>
+        <li><div class="icon-local">&#xe605;</div>本地音乐</li>
+        <li><div class="icon-down">&#xe63a;</div>下载管理</li>
+        <li><div class="icon-recent">&#xe661;</div>最近播放</li>
+        <li><div class="icon-cloud">&#xe654;</div>我的音乐云盘</li>
+        <li><div class="icon-fm">&#xe626;</div>我的电台</li>
+        <li><div class="icon-collect">&#xe63c;</div>我的收藏</li>
+      </ul>
+    </div>
+    <footer class="user-msg">
+      <img src="static/default_pic.jpg" class="user-avator">
+      <span class="user-name">user_name</span>
+      <span class="icon-setting">&#xe65b;</span>
+      <span class="icon-mail">&#xe68b;</span>
+    </footer>
   </div>
 </template>
 
@@ -31,15 +39,44 @@
 .nav-list{
   width: 200px;
   height: calc(100% - 90px);
+  box-sizing: border-box;
   border-right: 1px solid #eee;
-  box-shadow: 0 0 3px 1px #eee inset;
+  box-shadow: 0 0 4px 1px #eee;
   display: inline-block;
-  color: #3a3a3a;
+  color: #000;
   -webkit-user-select: none;
   cursor: default;
+  position: relative;
+  .nav-list-bd{
+    width: 100%;
+    overflow-y: scroll;
+    height: calc(100% - 100px);
+    margin-top: 40px;
+    &::-webkit-scrollbar{
+      /*width: 6px;*/
+      display: none;
+    }
+    &::-webkit-scrollbar-button{
+      display: none;
+    }
+    &::-webkit-scrollbar-track{
+      background-color: rgba(0, 0, 0, 0);
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb{
+      background-color: #EEE;
+      border-radius: 6px;
+      width: 6px;
+    }
+  }
   .checked{
     background-color: rgba(0, 0, 0, .12);
     border-left: 2px solid $theme-color;
+  }
+  .nav-list-open{
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   .nav-list-open:hover{
     background-color: transparent;
@@ -81,10 +118,12 @@
     .icon-mv{
       font-size: 18px;
       font-weight: bolder;
+      color: #444444;
     }
     .icon-fri{
       font-size: 18px;
       font-weight: bolder;
+      color: #444444;
     }
     .icon-local{
       font-size: 18px;
@@ -125,6 +164,42 @@
     cursor: default;
     &:hover{
       background-color: transparent;
+    }
+  }
+  .user-msg{
+    width: 200px;
+    box-sizing: border-box;
+    height: 60px;
+    border-top: 1px solid #eee;
+    line-height: 60px;
+    vertical-align: middle;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    .user-avator{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+    .user-name{
+      display: inline-block;
+      width: 93px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .icon-mail{
+      font-family: iconfont;
+      color: #000;
+      float: right;
+      margin-right: 10px;
+    }
+    .icon-setting{
+      font-family: iconfont;
+      float: right;
     }
   }
 }

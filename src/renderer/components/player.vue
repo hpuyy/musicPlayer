@@ -130,7 +130,7 @@
   width: 100%;
   height: 60px;
   border-top: 1px solid #f4f4f4;
-  box-shadow: 0 -2px 5px 1px #f4f4f4;
+  box-shadow: 0 -2px 5px 1px #f2f2f2;
   position: fixed;
   bottom: 0;
   overflow: hidden;

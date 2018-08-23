@@ -27,11 +27,11 @@
 <style>
   @font-face {
     font-family: 'iconfont';  /* project id 597493 */
-    src: url('//at.alicdn.com/t/font_597493_8yyskb4xkx.eot');
-    src: url('//at.alicdn.com/t/font_597493_8yyskb4xkx.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_597493_8yyskb4xkx.woff') format('woff'),
-    url('//at.alicdn.com/t/font_597493_8yyskb4xkx.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_597493_8yyskb4xkx.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_597493_tqy5td412qk.eot');
+    src: url('//at.alicdn.com/t/font_597493_tqy5td412qk.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_597493_tqy5td412qk.woff') format('woff'),
+    url('//at.alicdn.com/t/font_597493_tqy5td412qk.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_597493_tqy5td412qk.svg#iconfont') format('svg');
   }
   body::-webkit-scrollbar{
     width: 15px;
@@ -48,6 +48,7 @@
   }
   body{
     overflow: hidden;
+    font-family: 仿宋;
   }
   #app{
     position: fixed;
