@@ -12,12 +12,14 @@
          @mouseover="swiper('in')"
          @mouseout="swiper('out')">
       <swiper :options="swiperOption">
-        <swiper-slide><img src="static/default_pic.jpg"></swiper-slide>
-        <swiper-slide><img src="static/default_pic.jpg"></swiper-slide>
-        <swiper-slide><img src="static/default_pic.jpg"></swiper-slide>
-        <swiper-slide><img src="static/default_pic.jpg"></swiper-slide>
-        <swiper-slide><img src="static/default_pic.jpg"></swiper-slide>
-        <swiper-slide><img src="static/default_pic.jpg"></swiper-slide>
+        <swiper-slide><img :src="banner[0].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[1].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[2].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[3].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[4].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[5].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[6].picUrl"></swiper-slide>
+        <swiper-slide><img :src="banner[7].picUrl"></swiper-slide>
       </swiper>
       <!--以下看需要添加-->
       <div class="swiper-button-next" v-show="swiperNav"></div>
@@ -45,45 +47,9 @@
         <span class="recommend-more">更多&#xe617;</span>
       </header>
       <ul class="recommend-bd">
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
-        </li>
-        <li class="recommend-item">
-          <div class="item-pic"><img src="static/default_pic.jpg"></div>
-          <div class="item-name">光影一季|在这些【Stotyyfsdfsdfsdfsdf</div>
+        <li class="recommend-item" v-for="(item, index) in personalized">
+          <div class="item-pic"><img :src="item.picUrl"></div>
+          <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
     </div>
@@ -93,6 +59,8 @@
 <script>
   import 'swiper/dist/css/swiper.css';
   import { swiper, swiperSlide } from 'vue-awesome-swiper';
+  import Banner from '@/api/music/banner';
+  import Personalized from '@/api/music/personalized';
 
   export default {
     name: "index",
@@ -101,7 +69,7 @@
         swiperOption: {
           loop:true,
           autoplay: {
-            delay: 2600, //自动切换的时间间隔，单位ms
+            delay: 3800, //自动切换的时间间隔，单位ms
             stopOnLastSlide: false, //当切换到最后一个slide时停止自动切换
             disableOnInteraction: false, //用户操作swiper之后，是否禁止autoplay。
             waitForTransition: true, //等待过渡完毕。自动切换会在slide过渡完毕后才开始计时。
@@ -132,16 +100,27 @@
             modifier: 2,
             slideShadows : true
           },
-          speed: 800,
+          speed: 700,
         },
-        swiperNav: false
+        swiperNav: false,
+        banner: [],
+        personalized: []
       }
     },
     components:{
       swiper: swiper,
       swiperSlide: swiperSlide
     },
+    created(){
+      Banner().then((res)=>{
+        this.banner = res.banners
+      });
+      Personalized().then((res)=>{
+        this.personalized = res.result.slice(0,9);
+      })
+    },
     mounted(){
+
     },
     methods:{
       swiper(type){
@@ -158,6 +137,20 @@
 
 <style lang="scss">
   @import "@/sass/variable.scss";
+  .app-container::-webkit-scrollbar{
+    width: 10px;
+  }
+  .app-container::-webkit-scrollbar-button{
+    display: none;
+  }
+  .app-container::-webkit-scrollbar-track{
+    width: 10px;
+  }
+  .app-container::-webkit-scrollbar-thumb{
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    width: 10px;
+  }
 .discover-page-bd{
   padding: 16px 18px;
   .discover-page-title{
@@ -194,7 +187,6 @@
     cursor: pointer;
     img{
       width: 100%;
-      height: 120px;
     }
     .swiper-pagination{
       width: 100% !important;
@@ -213,14 +205,40 @@
         background-color: $theme-color !important;
       }
     }
+    .swiper-button-prev, .swiper-button-next{
+      background-image: none !important;
+      color: rgba(255, 255, 255, .6);
+      &:focus{
+        outline: none;
+      }
+      &:hover{
+        color: #fff;
+      }
+    }
+    .swiper-button-next::before{
+      font-family: iconfont;
+      content: '\e617';
+      font-size: 40px;
+      text-align: center;
+      color: inherit;
+      vertical-align: middle;
+    }
+    .swiper-button-prev::before{
+      font-family: iconfont;
+      content: '\e633';
+      font-size: 40px;
+      text-align: center;
+      color: inherit;
+      vertical-align: middle;
+    }
   }
   .discover-menu{
     margin-top: 22px;
     overflow: hidden;
     width: 100%;
     .center{
-      border-left: 1px solid #eee;
-      border-right: 1px solid #eee;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
       box-sizing: border-box;
     }
     .menu-item{
@@ -264,21 +282,23 @@
     .recommend-title{
       height: 28px;
       font-size: 16px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #ddd;
     }
     .recommend-more{
       font-family: iconfont;
       float: right;
       color: #626262;
       font-size: 12px;
+      cursor: pointer;
     }
     .recommend-bd{
-      margin-top: 8px;
+      margin-top: 10px;
       padding: 0;
       margin-bottom: 0;
       width: 100%;
       overflow: hidden;
       .recommend-item{
+        cursor: pointer;
         margin-bottom: 20px;
         width: 30%;
         list-style: none;

@@ -38,7 +38,10 @@
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vuex": "^2.3.1",
-    "y18n": "^4.0.0"
+    "y18n": "^4.0.0",
+    "apicache": "^1.2.1",
+    "big-integer": "^1.6.28",
+    "request": "^2.85.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -73,7 +76,10 @@
     "vue-template-compiler": "^2.4.2",
     "webpack": "^3.5.2",
     "webpack-dev-server": "^2.7.1",
-    "webpack-hot-middleware": "^2.18.2"
+    "webpack-hot-middleware": "^2.18.2",
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^5.1.1",
+    "power-assert": "^1.5.0"
   },
   "engines": {
     "node": ">= 6.0.0",

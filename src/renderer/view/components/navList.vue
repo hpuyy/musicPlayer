@@ -19,8 +19,10 @@
       </ul>
     </div>
     <footer class="user-msg">
-      <img src="static/default_pic.jpg" class="user-avator">
-      <span class="user-name">user_name</span>
+      <img :src="$store.state.userCenter.userInfo.avatarUrl"
+           class="user-avator"
+           @click="userCenter" alt="请登入">
+      <span class="user-name">{{$store.state.userCenter.userInfo.nickname}}</span>
       <span class="icon-setting">&#xe65b;</span>
       <span class="icon-mail">&#xe68b;</span>
     </footer>
@@ -29,7 +31,20 @@
 
 <script>
   export default {
-    name: "nav-list"
+    name: "nav-list",
+    data(){
+      return{
+      }
+    },
+    methods:{
+      userCenter(){
+        if(this.$store.state.userCenter.show)
+          this.$store.dispatch('userCenter/Hide');
+        else{
+          this.$store.dispatch('userCenter/Show');
+        }
+      }
+    }
   }
 </script>
 
@@ -190,6 +205,7 @@
       text-overflow: ellipsis;
       overflow: hidden;
       vertical-align: middle;
+      font-size: 12px;
     }
     .icon-mail{
       font-family: iconfont;

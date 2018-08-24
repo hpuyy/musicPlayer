@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <Frame></Frame>
-    <NavList></NavList>
+    <Frame />
+    <NavList />
     <div class="app-container">
       <router-view></router-view>
     </div>
-    <Player></Player>
+
+    <UserCenter />
+    <Player />
   </div>
 </template>
 
@@ -13,13 +15,15 @@
   import Frame from "@/view/components/frame";
   import Player from '@/view/components/player';
   import NavList from '@/view/components/navList';
+  import UserCenter from '@/view/components/userCenter';
 
   export default {
     name: 'cloud-music',
     components:{
       Frame: Frame,
       Player: Player,
-      NavList:NavList
+      NavList:NavList,
+      UserCenter: UserCenter
     }
   }
 </script>
@@ -27,11 +31,11 @@
 <style>
   @font-face {
     font-family: 'iconfont';  /* project id 597493 */
-    src: url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.eot');
-    src: url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.woff') format('woff'),
-    url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_597493_yl88xbdmrom.eot');
+    src: url('//at.alicdn.com/t/font_597493_yl88xbdmrom.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_597493_yl88xbdmrom.woff') format('woff'),
+    url('//at.alicdn.com/t/font_597493_yl88xbdmrom.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_597493_yl88xbdmrom.svg#iconfont') format('svg');
   }
   body::-webkit-scrollbar{
     width: 15px;
@@ -49,6 +53,7 @@
   body{
     overflow: hidden;
     font-family: 宋体 微软雅黑;
+    user-select: none;
   }
   #app{
     position: fixed;
@@ -61,5 +66,12 @@
     overflow-y: auto;
     vertical-align: top;
     height: calc(100% - 90px);
+  }
+  .slide-left-enter-active, .slide-left-leave-to{
+    transition: all .3s;
+  }
+  .slide-left-enter, .slide-left-leave-to{
+    transform: translate3d(100%, 0, 0);
+    opacity: .5;
   }
 </style>

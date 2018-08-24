@@ -49,6 +49,8 @@
 
 <script>
   import readDir from '@/js/readDir';
+  import NewSong from '@/api/music/personalized_newsong';
+  import MusicUrl from '@/api/music/music_url';
 
   export default {
     name: "player",
@@ -65,7 +67,10 @@
         auto: true,
         touchStart: 0,
         total: 0,
-        bathPath: 'http://localhost:8081/r/loadSrc?url='
+        bathPath: 'http://localhost:8081/r/loadsrc?url=',
+        music: [],
+        musicUrl: [],
+        index: 0
       }
     },
     mounted(){
@@ -75,6 +80,19 @@
       control(type){
         switch(type){
           case 'play': {
+            NewSong().then((res)=>{
+              res.result.map((data, index) => {
+                let artist = data.song.artists.map((art)=>{ return art.name; });
+                artist = artist.join('、');
+                this.music.push({
+                  id: data.song.id,
+                  mvid: data.song.mvid,
+                  name: data.song.name,
+                  pic: data.song.album.picUrl,
+                  artist: artist
+                })
+            });
+          });
             this.$refs.music.play();
             break;
           }
@@ -83,8 +101,11 @@
         }
       },
       next(){
-        this.$refs.music.src = this.bathPath + 'C:\\Users\\Administrator\\Desktop\\HellowWorld\\vueTest\\static\\music\\song3.mp3';
-        this.$refs.music.play();
+        /*this.$refs.music.src = this.bathPath + 'C:\\Users\\Administrator\\Desktop\\HellowWorld\\vueTest\\static\\music\\song3.mp3';*/
+        /*MusicUrl(this.music[this.index++].id).then((url)=>{
+          this.$refs.music.src = url.data[0].url;
+          this.$refs.music.play();
+        });*/
       },
       speed(e, action){
         if(action === 'start'){
