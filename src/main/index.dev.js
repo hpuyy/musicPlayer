@@ -24,4 +24,5 @@ require('electron').app.on('ready', () => {
 });
 
 // Require `main` process to boot app
+require('./node/index');
 require('./index');

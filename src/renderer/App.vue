@@ -10,9 +10,9 @@
 </template>
 
 <script>
-  import Frame from "@/components/frame";
-  import Player from '@/components/player';
-  import NavList from '@/components/navList';
+  import Frame from "@/view/components/frame";
+  import Player from '@/view/components/player';
+  import NavList from '@/view/components/navList';
 
   export default {
     name: 'cloud-music',
@@ -27,11 +27,11 @@
 <style>
   @font-face {
     font-family: 'iconfont';  /* project id 597493 */
-    src: url('//at.alicdn.com/t/font_597493_tqy5td412qk.eot');
-    src: url('//at.alicdn.com/t/font_597493_tqy5td412qk.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_597493_tqy5td412qk.woff') format('woff'),
-    url('//at.alicdn.com/t/font_597493_tqy5td412qk.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_597493_tqy5td412qk.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.eot');
+    src: url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.woff') format('woff'),
+    url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_597493_bkg3bkypw2d.svg#iconfont') format('svg');
   }
   body::-webkit-scrollbar{
     width: 15px;
@@ -48,7 +48,7 @@
   }
   body{
     overflow: hidden;
-    font-family: 仿宋;
+    font-family: 宋体 微软雅黑;
   }
   #app{
     position: fixed;
@@ -58,7 +58,8 @@
     left: 0;
   }
   .app-container{
-    display: inline-block;
+    overflow-y: auto;
     vertical-align: top;
+    height: calc(100% - 90px);
   }
 </style>

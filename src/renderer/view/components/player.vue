@@ -4,7 +4,7 @@
       <img :src="pic">
     </div>
     <div class="player-control">
-      <div class="pre">&#xe6e1;</div>
+      <div class="pre" @click="control('prev')">&#xe6e1;</div>
       <div class="play-bd">
         <span class="play"
               v-if="true"
@@ -13,7 +13,7 @@
               v-else
               @click="control('pause')">&#xe647;</span>
       </div>
-      <div class="next">&#xe718;</div>
+      <div class="next" @click="control('next')">&#xe718;</div>
     </div>
     <div class="player-process"
          @mousemove="speed($event, 'move')"
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import readDir from '@/js/readDir.js';
+  import readDir from '@/js/readDir';
 
   export default {
     name: "player",
@@ -64,7 +64,8 @@
         percent: '',
         auto: true,
         touchStart: 0,
-        total: 0
+        total: 0,
+        bathPath: 'http://localhost:8081/r/loadSrc?url='
       }
     },
     mounted(){
@@ -80,6 +81,10 @@
           case 'next': this.next(); break;
           case 'prev': this.prev(); break;
         }
+      },
+      next(){
+        this.$refs.music.src = this.bathPath + 'C:\\Users\\Administrator\\Desktop\\HellowWorld\\vueTest\\static\\music\\song3.mp3';
+        this.$refs.music.play();
       },
       speed(e, action){
         if(action === 'start'){

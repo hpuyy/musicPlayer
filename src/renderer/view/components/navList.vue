@@ -42,7 +42,7 @@
   box-sizing: border-box;
   border-right: 1px solid #eee;
   box-shadow: 0 0 4px 1px #eee;
-  display: inline-block;
+  float: left;
   color: #000;
   -webkit-user-select: none;
   cursor: default;
