@@ -90,6 +90,10 @@ app1.use('/music/url', Wrap(require("./router/musicUrl")));
 app1.use('/login/cellphone', Wrap(require("./router/loginCellphone")));
 app1.use('/banner', Wrap(require("./router/banner")));
 app1.use('/personalized', Wrap(require("./router/personalized")));
+app1.use('/user/subcount', Wrap(require("./router/user_subcount")));
+app1.use('/login/refresh', Wrap(require("./router/login_refresh")));
+app1.use('/user/detail', Wrap(require("./router/user_detail")));
+app1.use('/recommend/resource', Wrap(require("./router/recommend_resource")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));
@@ -97,6 +101,6 @@ app1.use('/personalized', Wrap(require("./router/personalized")));
 
 /*******************************************************************/
 
-app1.listen(8081, () => {
+app1.listen(3000, () => {
   console.log(`server running @ http://localhost:8081`);
 });

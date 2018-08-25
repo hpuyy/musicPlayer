@@ -61,6 +61,7 @@
   import { swiper, swiperSlide } from 'vue-awesome-swiper';
   import Banner from '@/api/music/banner';
   import Personalized from '@/api/music/personalized';
+  import RecommendResource from '@/api/music/recommend_resource';
 
   export default {
     name: "index",
@@ -117,10 +118,13 @@
       });
       Personalized().then((res)=>{
         this.personalized = res.result.slice(0,9);
-      })
+      });
     },
     mounted(){
+      if(this.$store.state.userCenter.userInfo.userId != undefined){
 
+      }
+      RecommendResource();
     },
     methods:{
       swiper(type){

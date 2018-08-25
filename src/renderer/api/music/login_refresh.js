@@ -1,11 +1,10 @@
 import axios from '../axios';
 
-export default function (phone, pwd) {
+export default function () {
+
   const require = new Promise((resolve, reject) => {
-    axios.get('/login/cellphone',{
+    axios.get('/login/refresh',{
       params:{
-        phone: phone,
-        password: pwd,
         timestamp: new Date().getTime()
       },
       withCredentials: true

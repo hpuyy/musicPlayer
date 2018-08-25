@@ -1,6 +1,6 @@
 let state = {
   show: false,
-  userInfo: JSON.parse(localStorage.getItem('userInfo')) || {nickname: 'nickname', avatarUrl: 'static/default_pic.jpg'}
+  userInfo: JSON.parse(localStorage.getItem('userInfo')) || {nickname: '尚未未登入', avatarUrl: 'static/default_pic.jpg'}
 };
 
 let getters = {
@@ -36,7 +36,7 @@ let actions = {
   Show({commit}){
     commit('Show');
   },
-  setInfo({conmmit}, data){
+  setInfo({commit}, data){
     commit('setInfo', data);
   }
 };

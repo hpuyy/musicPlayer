@@ -5,7 +5,7 @@
         <div class="content">账号</div>
         <div class="edit" v-show="userInfo != undefined">编辑</div>
       </header>
-      <div class="user-center-login" v-show="userInfo == undefined">
+      <div class="user-center-login" v-show="$store.state.userCenter.userInfo.userId == undefined">
         <div class="login-item">
           <input type="text" placeholder="请输入手机号" v-model="phone">
         </div>
@@ -16,12 +16,58 @@
           <input type="button" value="登入" class="btn" @click="login">
         </div>
       </div>
+      <div class="user-info">
+        <div class="user-info-item">
+          <div class="avator"><img :src="$store.state.userCenter.userInfo.avatarUrl"></div>
+          <div class="nickname">{{$store.state.userCenter.userInfo.nickname}}</div>
+          <div class="reg"><span>&#xe6cb;</span>签到</div>
+        </div>
+        <div class="user-info-item">
+          <div class="info-item-msg">
+            <div class="msg-num">{{detail.eventCount}}</div>
+            <div class="msg-name">动态</div>
+          </div>
+          <div class="info-item-msg msg-center">
+            <div>{{detail.follows}}</div>
+            <div>关注</div>
+          </div>
+          <div class="info-item-msg">
+            <div>{{detail.followeds}}</div>
+            <div>粉丝</div>
+          </div>
+        </div>
+      </div>
+      <div class="user-grade-bd">
+        <div class="user-grade-item">
+          <span class="icon-grade">&#xe6cf;</span>
+          <span class="grade">我的等级</span>
+          <span class="icon-right">&#xe617;</span>
+          <span class="item-num">lv.{{level}}</span>
+        </div>
+        <div class="user-grade-item">
+          <span class="icon-vip">&#xe608;</span>
+          <span class="grade">会员中心</span>
+          <span class="icon-right">&#xe617;</span>
+          <span class="item-num">
+            <span v-if="detail.vipType == 0">未订购</span>
+            <span v-else>已订购</span>
+          </span>
+        </div>
+        <div class="user-grade-item">
+          <span class="icon-cart">&#xe696;</span>
+          <span class="grade">积分商城</span>
+          <span class="icon-right">&#xe617;</span>
+          <span class="item-num">未知</span>
+        </div>
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
   import LoginCellphone from '@/api/music/login_cellphone';
+  import Refresh from '@/api/music/login_refresh';
+  import GetDetail from '@/api/music/user_detail';
 
   export default {
     name: "userCenter",
@@ -29,11 +75,23 @@
       return{
         userInfo: this.$store.state.userCenter.userInfo.userId,
         phone:'',
-        pwd: ''
+        pwd: '',
+        detail: {},
+        level: 0
       }
     },
     mounted(){
-      console.log(this.userInfo)
+      /*LoginCellphone('15659820919', 'zwq357smile').then((res)=>{
+        console.log(JSON.parse(localStorage.getItem('cookie')));
+      });*/
+      // document.cookie = JSON.parse(localStorage.getItem('cookie'));
+      Refresh();
+      if(this.userInfo !== undefined){
+        GetDetail(this.userInfo).then((res)=>{
+          this.detail = res.profile;
+          this.level = res.level;
+        });
+      }
     },
     methods:{
       login(){
@@ -41,6 +99,7 @@
           localStorage.setItem('userInfo', JSON.stringify(res.profile));
           this.$store.dispatch('userCenter/Hide');
           this.$store.dispatch('userCenter/setInfo', res.profile);
+          console.log(this.$store.state.userCenter.userInfo);
         })
       }
     }
@@ -98,6 +157,94 @@
           border: 0;
           cursor: pointer;
           color: #fff;
+        }
+      }
+    }
+    .user-info{
+      width: 100%;
+      height: 150px;
+      padding: 0 15px;
+      border-bottom: 1px solid #eee;
+      box-sizing: border-box;
+      .user-info-item{
+        height: 75px;
+        padding: 10px 0;
+        box-sizing: border-box;
+        line-height: 55px;
+        font-size: 12px;
+        &>div{
+          display: inline-block;
+          vertical-align: middle;
+          box-sizing: border-box;
+        }
+        .reg{
+          float: right;
+          border: 1px solid #bbbbbb;
+          height: 20px;
+          width: 55px;
+          line-height: 20px;
+          text-align: center;
+          margin-top: 15px;
+          cursor: pointer;
+          span{
+            font-family: iconfont;
+            font-size: 16px;
+            vertical-align: -10%;
+          }
+        }
+        .avator{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 5px;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .info-item-msg{
+          width: 32.5%;
+          text-align: center;
+          &>div{
+            line-height: 22.5px;
+          }
+        }
+      }
+      .msg-center{
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+      }
+    }
+    .user-grade-bd{
+      padding: 20px;
+      box-sizing: border-box;
+      .user-grade-item{
+        height: 45px;
+        font-size: 12px;
+        line-height: 45px;
+        cursor: pointer;
+        [class^= 'icon-']{
+          font-family: iconfont;
+          vertical-align: middle;
+          margin-right: 2px;
+        }
+        .icon-grade{
+          font-size: 18px;
+        }
+        .icon-vip{
+          font-size: 16px;
+          color: #5f5f5f;
+          margin-right: 3px;
+        }
+        .icon-cart{
+          font-size: 20px;
+          margin-left: -1px;
+        }
+        .item-num, .icon-right{
+          float: right;
+          margin-left: 8px;
+          color: #828282;
         }
       }
     }
