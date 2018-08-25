@@ -7,20 +7,23 @@
       <div class="pre" @click="control('prev')">&#xe6e1;</div>
       <div class="play-bd">
         <span class="play"
-              v-if="true"
+              v-if="!this.$store.state.songList.status"
               @click="control('play')">&#xe69d;</span>
         <span class="pause"
               v-else
               @click="control('pause')">&#xe647;</span>
       </div>
-      <div class="next" @click="control('next')">&#xe718;</div>
+      <div class="next" @click="control('next')">&#xe718;
+      </div>
     </div>
     <div class="player-process"
          @mousemove="speed($event, 'move')"
          @mouseup="speed($event, 'end')">
       <div class="music-name">
-        <span class="name">标题标题标题</span>
-        <span class="author"> - 作者</span>
+        <span class="name">{{playInfo.name || "当前无正在播放歌曲"}}</span>
+        <span class="author">
+          - {{playInfo.name? playInfo.artists[0].name : "未知"}}
+        </span>
         <div class="timer">
           <span>{{currentTimeShow}}</span>
           <span class="timer-total"> / {{durationShow}}</span>
@@ -48,8 +51,8 @@
 </template>
 
 <script>
-  import readDir from '@/js/readDir';
-  import NewSong from '@/api/music/personalized_newsong';
+  // import readDir from '@/js/readDir';
+  // import NewSong from '@/api/music/personalized_newsong';
   import MusicUrl from '@/api/music/music_url';
 
   export default {
@@ -70,17 +73,26 @@
         bathPath: 'http://localhost:8081/r/loadsrc?url=',
         music: [],
         musicUrl: [],
-        index: 0
+        playInfo: {}
       }
     },
     mounted(){
       // let file = readDir("C:\\Users\\Administrator\\Desktop\\文档\\");
     },
+    watch:{
+      '$store.state.songList.index': function (val, old) {
+        MusicUrl(this.$store.state.songList.songList[val].id).then((res)=>{
+          this.$refs.music.src = res.data[0].url;
+          this.playInfo = this.$store.state.songList.songList[val];
+          this.$refs.music.play();
+        });
+      }
+    },
     methods:{
       control(type){
         switch(type){
           case 'play': {
-            NewSong().then((res)=>{
+            /*NewSong().then((res)=>{
               res.result.map((data, index) => {
                 let artist = data.song.artists.map((art)=>{ return art.name; });
                 artist = artist.join('、');
@@ -93,11 +105,20 @@
                 })
             });
           });
-            this.$refs.music.play();
+            this.$refs.music.play();*/
+            this.play();
             break;
           }
           case 'next': this.next(); break;
           case 'prev': this.prev(); break;
+        }
+      },
+      play(){
+        if(this.state){
+          this.$refs.music.pause();
+        }
+        else{
+          this.$refs.music.play();
         }
       },
       next(){

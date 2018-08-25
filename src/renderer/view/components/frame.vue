@@ -29,7 +29,6 @@
     },
     methods:{
       changeSize(type){
-        console.log(BrowserWindow.getFocusedWindow());
         switch (type){
           case 'min':BrowserWindow.getFocusedWindow().minimize(); break;
           case 'max':

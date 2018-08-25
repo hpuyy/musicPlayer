@@ -2,10 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import alert from './core/alert'
 require('./node/app');
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
+Vue.prototype.$alert = alert;
 
 /* eslint-disable no-new */
 new Vue({

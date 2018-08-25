@@ -29,12 +29,14 @@ function createWindow () {
   /**
    * Initial window options
    */
-  win = new electron.BrowserWindow({width: 800, height: 550, frame: false});
+  win = new electron.BrowserWindow({width: 800, height: 550, frame: false, minWidth: 750});
 
   win.loadURL(winURL);
 
+
   // 打开开发者工具
-  win.webContents.openDevTools();
+  if(process.env.NODE_ENV === 'development')
+    win.webContents.openDevTools();
 
   //系统托盘右键菜单
   let trayMenuTemplate = [

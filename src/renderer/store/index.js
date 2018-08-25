@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import  userCenter from './modules/userCenter'
+import  songList from './modules/songList'
 
 Vue.use(Vuex);
 
@@ -77,6 +78,7 @@ export default new Vuex.Store({
   actions,
   strict: process.env.NODE_ENV !== 'production',
   modules:{
-    userCenter
+    userCenter,
+    songList
   }
 })

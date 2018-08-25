@@ -31,7 +31,7 @@
         <div class="item-logo icon-FM">&#xe606;</div>
         <div class="item-name">私人FM</div>
       </div>
-      <div class="menu-item center">
+      <div class="menu-item center" @click="$router.push('/recommend/songs')">
         <div class="item-logo">&#xe60e;</div>
         <div class="item-name">每日歌曲推荐</div>
       </div>
@@ -61,7 +61,7 @@
   import { swiper, swiperSlide } from 'vue-awesome-swiper';
   import Banner from '@/api/music/banner';
   import Personalized from '@/api/music/personalized';
-  import RecommendResource from '@/api/music/recommend_resource';
+  // import RecommendResource from '@/api/music/recommend_resource';
 
   export default {
     name: "index",
@@ -121,10 +121,11 @@
       });
     },
     mounted(){
-      if(this.$store.state.userCenter.userInfo.userId != undefined){
+      /*if(this.$store.state.userCenter.userInfo.userId != undefined){
+        RecommendResource().then(()=>{
 
-      }
-      RecommendResource();
+        });
+      }*/
     },
     methods:{
       swiper(type){

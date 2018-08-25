@@ -94,6 +94,7 @@ app1.use('/user/subcount', Wrap(require("./router/user_subcount")));
 app1.use('/login/refresh', Wrap(require("./router/login_refresh")));
 app1.use('/user/detail', Wrap(require("./router/user_detail")));
 app1.use('/recommend/resource', Wrap(require("./router/recommend_resource")));
+app1.use('/recommend/songs', Wrap(require("./router/recommend_songs")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));
@@ -101,6 +102,6 @@ app1.use('/recommend/resource', Wrap(require("./router/recommend_resource")));
 
 /*******************************************************************/
 
-app1.listen(3000, () => {
+app1.listen(9082, () => {
   console.log(`server running @ http://localhost:8081`);
 });

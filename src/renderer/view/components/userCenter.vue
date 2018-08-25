@@ -80,13 +80,18 @@
         level: 0
       }
     },
-    mounted(){
-      /*LoginCellphone('15659820919', 'zwq357smile').then((res)=>{
-        console.log(JSON.parse(localStorage.getItem('cookie')));
-      });*/
-      // document.cookie = JSON.parse(localStorage.getItem('cookie'));
-      Refresh();
+    created(){
       if(this.userInfo !== undefined){
+        Refresh().then((res)=>{
+          if(res.code !== 200){
+            this.$alert('登入失败！', '提示');
+            localStorage.removeItem('userInfo');
+            location.reload();
+          }
+          else{
+            this.$alert('登入成功！', '温馨提示');
+          }
+        });
         GetDetail(this.userInfo).then((res)=>{
           this.detail = res.profile;
           this.level = res.level;
@@ -99,7 +104,7 @@
           localStorage.setItem('userInfo', JSON.stringify(res.profile));
           this.$store.dispatch('userCenter/Hide');
           this.$store.dispatch('userCenter/setInfo', res.profile);
-          console.log(this.$store.state.userCenter.userInfo);
+          this.$alert('登入成功！', '温馨提示');
         })
       }
     }
