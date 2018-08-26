@@ -1,8 +1,11 @@
 import axios from '../axios';
 
-export default function () {
+export default function (id) {
   const require = new Promise((resolve, reject) => {
-    axios.get('/user/subcount',{
+    axios.get('/playlist/detail',{
+      params:{
+        id: id
+      }
     }).then((data)=> {
       resolve(data.data);
     });

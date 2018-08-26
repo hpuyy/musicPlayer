@@ -1,8 +1,6 @@
 let state = {
-  index: 0,
-  status: false,
-  id: '',
-  songList: JSON.parse(localStorage.getItem('songList')) || []
+  show: false,
+  fullPath: []
 };
 
 let getters = {
@@ -20,28 +18,26 @@ let getters = {
 };
 
 let mutations = {
-  setSongList(state,data){
-    state.songList = data
+  show(state, data){
+    state.show = data;
   },
-  play(state,index){
-    state.id = state.songList[index].id;
-    state.index = index;
-    state.status = true;
+  removePath(state){
+    state.fullPath.shift();
   },
-  stop(state){
-    state.status = false;
+  setFullPath(state, url){
+    state.fullPath.unshift(url);
   }
 };
 
 let actions = {
-  setSongList({commit}, data){
-    commit('setSongList', data);
+  show({commit}, data){
+    commit('show', data);
   },
-  play({commit}, index){
-    commit('play', index);
+  removePath({commit}){
+    commit('removePath');
   },
-  stop({commit}){
-    commit('stop');
+  setFullPath({commit}, url){
+    commit('setFullPath', url);
   }
 };
 

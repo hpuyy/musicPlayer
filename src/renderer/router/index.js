@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// const discover = resolve => require(['@/view/discover/index'], resolve);
 import discover from '@/view/discover/index';
+
+/*****************非首页展示栏目*懒加载********************************/
+
 const recommendSongs = resolve => require(['@/view/recommend/recommendSongs'], resolve);
+const songList = resolve => require(['@/view/songList/songList'], resolve);
+
 Vue.use(Router);
 
 export default new Router({
@@ -19,6 +23,10 @@ export default new Router({
       path: '/recommend/songs',
       name: 'recommendSongs',
       component: recommendSongs
+    },{
+      path: '/songList',
+      name: 'songList',
+      component: songList
     }
   ]
 })

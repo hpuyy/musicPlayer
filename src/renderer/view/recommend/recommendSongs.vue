@@ -11,12 +11,12 @@
     <ul class="recommend-songs-list">
       <li class="song-list-item"
           v-for="(item, index) in songList" @click="play(index)">
-        <span class="index">{{index}}</span>
+        <span class="index">{{index + 1}}</span>
         <span class="collect">&#xe681;</span>
         <span class="name">{{item.name}}</span>
         <span class="type">&#xe60a;</span>
         <span class="album">{{item.album.name}}</span>
-        <span class="artist">{{item.artists[0].name}}</span>
+        <span class="artist">{{item.artists.map(art=>{return art.name}).join('、')}}</span>
       </li>
     </ul>
   </div>
@@ -35,6 +35,7 @@
       }
     },
     created(){
+      this.$store.dispatch('back/show', true);
       Daily().then((res)=>{
         this.songList = res.recommend;
       });
@@ -45,6 +46,7 @@
           this.$store.dispatch('songList/setSongList', this.songList);
           localStorage.setItem('songList', JSON.stringify(this.songList));
         }
+        this.$store.dispatch('songList/stop');
         this.$store.dispatch('songList/play', index);
       }
     }
@@ -58,18 +60,18 @@
     height: 100%;
     overflow-y: auto;
     &::-webkit-scrollbar{
-      width: 10px;
+      width: 8px;
     }
     &::-webkit-scrollbar-button{
       display: none;
     }
     &::-webkit-scrollbar-track{
-      width: 10px;
+      width: 8px;
     }
     &::-webkit-scrollbar-thumb{
       background-color: #d1d1d1;
       border-radius: 10px;
-      width: 10px;
+      width: 8px;
     }
     .recommend-songs-bg{
       height: 228px;
@@ -120,7 +122,7 @@
       }
     }
     .recommend-songs-list{
-      padding: 0 28px;
+      padding: 0 28px 50px;
       margin: 0;
       list-style: none;
       .song-list-item{
@@ -144,15 +146,18 @@
           width: 20px;
         }
         .name{
-          width: 180px;
+          min-width: 180px;
+          width: 22%;
         }
         .artist{
           float: right;
-          width: 100px;
+          min-width: 100px;
+          width: 20%;
         }
         .album{
           float: right;
-          width: 140px;
+          min-width: 140px;
+          width: 22%;
         }
         .type{
           font-family: iconfont;

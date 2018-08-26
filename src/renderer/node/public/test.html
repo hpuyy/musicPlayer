@@ -11,7 +11,7 @@
 <body>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script>
-    $.ajax({
+    /*$.ajax({
       url: "http://localhost:3000/login/cellphone?phone=15659820919&password=zwq357smile",
       xhrFields: {
         withCredentials: true
@@ -22,7 +22,27 @@
       error: function (err) {
         console.log(err)
       }
-    })
+    });*/
+    $.ajax({
+      url: "http://localhost:9082/a/cgi-bin/musicy",
+      type: 'get',
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (err) {
+        console.log(err)
+      }
+    });
+    $.ajax({
+      url: "http://localhost:9082/a/cgi-bin/musicu",
+      type: 'post',
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (err) {
+        console.log(err)
+      }
+    });
   </script>
 </body>
 

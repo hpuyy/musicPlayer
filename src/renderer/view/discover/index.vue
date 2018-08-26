@@ -47,7 +47,9 @@
         <span class="recommend-more">更多&#xe617;</span>
       </header>
       <ul class="recommend-bd">
-        <li class="recommend-item" v-for="(item, index) in personalized">
+        <li class="recommend-item"
+            v-for="(item, index) in personalized"
+            @click="$router.push(`/songList?id=${item.id}`)">
           <div class="item-pic"><img :src="item.picUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
@@ -113,6 +115,8 @@
       swiperSlide: swiperSlide
     },
     created(){
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+      this.$store.dispatch('back/show', false);
       Banner().then((res)=>{
         this.banner = res.banners
       });

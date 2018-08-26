@@ -11,7 +11,7 @@
               @click="control('play')">&#xe69d;</span>
         <span class="pause"
               v-else
-              @click="control('pause')">&#xe647;</span>
+              @click="control('play')">&#xe647;</span>
       </div>
       <div class="next" @click="control('next')">&#xe718;
       </div>
@@ -22,7 +22,7 @@
       <div class="music-name">
         <span class="name">{{playInfo.name || "当前无正在播放歌曲"}}</span>
         <span class="author">
-          - {{playInfo.name? playInfo.artists[0].name : "未知"}}
+          - {{playInfo.name? playInfo.artists.map((art)=>{ return art.name}).join('、') : "未知"}}
         </span>
         <div class="timer">
           <span>{{currentTimeShow}}</span>
@@ -70,42 +70,44 @@
         auto: true,
         touchStart: 0,
         total: 0,
-        bathPath: 'http://localhost:8081/r/loadsrc?url=',
         music: [],
         musicUrl: [],
-        playInfo: {}
+        playInfo: {},
+        playerControl: false
       }
     },
     mounted(){
-      // let file = readDir("C:\\Users\\Administrator\\Desktop\\文档\\");
+      MusicUrl(this.$store.state.songList.songList[0].id).then((res)=>{
+        this.$refs.music.src = res.data[0].url;
+        this.playInfo = this.$store.state.songList.songList[0];
+      });
+      this.play();
     },
     watch:{
-      '$store.state.songList.index': function (val, old) {
-        MusicUrl(this.$store.state.songList.songList[val].id).then((res)=>{
-          this.$refs.music.src = res.data[0].url;
-          this.playInfo = this.$store.state.songList.songList[val];
-          this.$refs.music.play();
-        });
+      '$store.state.songList.status': function (val, old) {
+        if(val){
+          let data = this.$store.state.songList;
+          if(this.playerControl){
+            this.$refs.music.play();
+            this.playerControl = false;
+          }
+          else{
+            MusicUrl(data.songList[data.index].id).then((res)=>{
+              this.$refs.music.src = res.data[0].url;
+              this.playInfo = data.songList[data.index];
+              this.$refs.music.play();
+            });
+          }
+        }
+        else{
+          this.$refs.music.pause();
+        }
       }
     },
     methods:{
       control(type){
         switch(type){
           case 'play': {
-            /*NewSong().then((res)=>{
-              res.result.map((data, index) => {
-                let artist = data.song.artists.map((art)=>{ return art.name; });
-                artist = artist.join('、');
-                this.music.push({
-                  id: data.song.id,
-                  mvid: data.song.mvid,
-                  name: data.song.name,
-                  pic: data.song.album.picUrl,
-                  artist: artist
-                })
-            });
-          });
-            this.$refs.music.play();*/
             this.play();
             break;
           }
@@ -114,19 +116,27 @@
         }
       },
       play(){
-        if(this.state){
-          this.$refs.music.pause();
+        if(this.$store.state.songList.status){
+          this.$store.dispatch('songList/stop');
         }
         else{
-          this.$refs.music.play();
+          this.playerControl = true;
+          this.$store.dispatch('songList/stop');
+          this.$store.dispatch('songList/play', this.$store.state.songList.index);
         }
       },
+      prev(){
+        let index = this.$store.state.songList.index - 1;
+        if(index === -1) index = this.$store.state.songList.songList.length - 1;
+        this.$store.dispatch('songList/stop');
+        setTimeout(()=>{this.$store.dispatch('songList/play', index)}, 10);
+      },
       next(){
-        /*this.$refs.music.src = this.bathPath + 'C:\\Users\\Administrator\\Desktop\\HellowWorld\\vueTest\\static\\music\\song3.mp3';*/
-        /*MusicUrl(this.music[this.index++].id).then((url)=>{
-          this.$refs.music.src = url.data[0].url;
-          this.$refs.music.play();
-        });*/
+        let index = this.$store.state.songList.index + 1;
+        if(index === this.$store.state.songList.songList.length) index = 0;
+        console.log(this.$store.state.songList.status);
+        this.$store.dispatch('songList/stop');
+        setTimeout(()=>{this.$store.dispatch('songList/play', index)}, 10);
       },
       speed(e, action){
         if(action === 'start'){
@@ -148,13 +158,14 @@
       },
       progress(){
         if(!this.auto) return;
-        this.duration = this.$refs.music.duration;
-        this.currentTime = this.$refs.music.currentTime;
+        this.duration = this.$refs.music.duration || 0;
+        this.currentTime = this.$refs.music.currentTime || 0;
         this.percent = this.currentTime/this.duration*100+'%';
         this.durationShow = this.timeTransform(this.duration);
         this.currentTimeShow = this.timeTransform(this.currentTime);
         this.$refs.music.addEventListener('ended',()=>{
           console.log("end");
+          this.next();
         });
       },
       timeTransform(time){

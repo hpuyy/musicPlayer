@@ -29,7 +29,7 @@ function createWindow () {
   /**
    * Initial window options
    */
-  win = new electron.BrowserWindow({width: 800, height: 550, frame: false, minWidth: 750});
+  win = new electron.BrowserWindow({width: 800, height: 550, frame: false, minWidth: 755});
 
   win.loadURL(winURL);
 

@@ -1,5 +1,10 @@
 <template>
   <header class="frame-head">
+    <span class="frame-head-back"
+          v-show="$store.state.back.show"
+          @click="back">
+          &#xe641;
+    </span>
     <span class="title">网易云音乐</span>
     <div class="frame-opt">
       <div class="item min" @click="changeSize('min')">&#xe6b7;</div>
@@ -42,6 +47,10 @@
           case 'close': BrowserWindow.getFocusedWindow().hide(); break;
         }
 
+      },
+      back(){
+        this.$router.push(this.$store.state.back.fullPath[0] || '/');
+        this.$store.dispatch('back/removePath');
       }
     }
   }
@@ -58,11 +67,25 @@
   line-height: 30px;
   color: #fff;
   font-size: 12px;
+  .frame-head-back{
+    font-family: iconfont;
+    color: #fff;
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: top;
+    -webkit-app-region: no-drag;
+    height: 100%;
+    text-align: center;
+    width: 46px;
+    &:hover{
+      background-color: rgba(0, 0, 0, .2);
+    }
+  }
   .title{
-    padding-left: 15px;
     font-size: inherit;
     color: #fff;
     font-weight: lighter;
+    padding-left: 10px;
   }
   .frame-opt{
     -webkit-app-region: no-drag;

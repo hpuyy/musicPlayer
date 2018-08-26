@@ -3,9 +3,10 @@
     <Frame />
     <NavList />
     <div class="app-container">
-      <router-view></router-view>
+      <transition name="opacity">
+        <router-view></router-view>
+      </transition>
     </div>
-
     <UserCenter />
     <Player />
   </div>
@@ -31,11 +32,11 @@
 <style>
   @font-face {
     font-family: 'iconfont';  /* project id 597493 */
-    src: url('//at.alicdn.com/t/font_597493_k2zzjt8119.eot');
-    src: url('//at.alicdn.com/t/font_597493_k2zzjt8119.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_597493_k2zzjt8119.woff') format('woff'),
-    url('//at.alicdn.com/t/font_597493_k2zzjt8119.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_597493_k2zzjt8119.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_597493_lxtqalp95h.eot');
+    src: url('//at.alicdn.com/t/font_597493_lxtqalp95h.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_597493_lxtqalp95h.woff') format('woff'),
+    url('//at.alicdn.com/t/font_597493_lxtqalp95h.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_597493_lxtqalp95h.svg#iconfont') format('svg');
   }
   body::-webkit-scrollbar{
     width: 15px;
@@ -73,5 +74,12 @@
   .slide-left-enter, .slide-left-leave-to{
     transform: translate3d(100%, 0, 0);
     opacity: .5;
+  }
+  .opacity-enter-active, .opacity-leave-to{
+    transition: all .3s;
+  }
+  .opacity-enter, .opacity-leave-to{
+    transform: scale3d(.5, .5, 1);
+    opacity: 0;
   }
 </style>

@@ -4,13 +4,12 @@ const path = require("path");
 const fs = require("fs");
 const app1 = express();
 let cache = apicache.middleware;
-
-// let proxy = require('express-http-proxy');
+let proxy = require('express-http-proxy');
 // let _time = new Date().getTime();
 // const url=require('url');
 // let superagent = require('superagent');
 
-// app.use('/', proxy('https://u.y.qq.com'));
+app.use('/qq', proxy('https://c.y.qq.com'));
 
 /*app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -84,6 +83,7 @@ const Wrap = fn => (req, res) => fn(req, res, createWebAPIRequest, request);
 
 /*******************************************************************/
 app1.use('/r', require('./readAudio/index'));
+app1.use('/a', require("./router/qq"));
 
 app1.use('/personalized/newsong', Wrap(require("./router/personalized_newsong")));
 app1.use('/music/url', Wrap(require("./router/musicUrl")));
@@ -95,6 +95,7 @@ app1.use('/login/refresh', Wrap(require("./router/login_refresh")));
 app1.use('/user/detail', Wrap(require("./router/user_detail")));
 app1.use('/recommend/resource', Wrap(require("./router/recommend_resource")));
 app1.use('/recommend/songs', Wrap(require("./router/recommend_songs")));
+app1.use('/playlist/detail', Wrap(require("./router/playlist_detail")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));
