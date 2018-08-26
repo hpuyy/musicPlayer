@@ -4,12 +4,9 @@ const path = require("path");
 const fs = require("fs");
 const app1 = express();
 let cache = apicache.middleware;
-let proxy = require('express-http-proxy');
 // let _time = new Date().getTime();
 // const url=require('url');
 // let superagent = require('superagent');
-
-app.use('/qq', proxy('https://c.y.qq.com'));
 
 /*app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -20,7 +17,7 @@ app.use('/qq', proxy('https://c.y.qq.com'));
 
 // 跨域设置
 app1.all("*", function(req, res, next) {
-  if (req.path !== "/" && !req.path.includes(".")) {
+  if (req.path !== "/") {
     res.header("Access-Control-Allow-Credentials", true);
     // 这里获取 origin 请求头 而不是用 *
     res.header("Access-Control-Allow-Origin", req.headers["origin"] || "*");
@@ -83,7 +80,6 @@ const Wrap = fn => (req, res) => fn(req, res, createWebAPIRequest, request);
 
 /*******************************************************************/
 app1.use('/r', require('./readAudio/index'));
-app1.use('/a', require("./router/qq"));
 
 app1.use('/personalized/newsong', Wrap(require("./router/personalized_newsong")));
 app1.use('/music/url', Wrap(require("./router/musicUrl")));
@@ -96,6 +92,7 @@ app1.use('/user/detail', Wrap(require("./router/user_detail")));
 app1.use('/recommend/resource', Wrap(require("./router/recommend_resource")));
 app1.use('/recommend/songs', Wrap(require("./router/recommend_songs")));
 app1.use('/playlist/detail', Wrap(require("./router/playlist_detail")));
+app1.use('/user/playlist', Wrap(require("./router/user_playlist")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));
@@ -103,6 +100,6 @@ app1.use('/playlist/detail', Wrap(require("./router/playlist_detail")));
 
 /*******************************************************************/
 
-app1.listen(9082, () => {
+app1.listen(9081, () => {
   console.log(`server running @ http://localhost:8081`);
 });

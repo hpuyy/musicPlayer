@@ -47,7 +47,9 @@
           localStorage.setItem('songList', JSON.stringify(this.songList));
         }
         this.$store.dispatch('songList/stop');
-        this.$store.dispatch('songList/play', index);
+        setTimeout(() => {
+          this.$store.dispatch('songList/play', index);
+        },10);
       }
     }
   }

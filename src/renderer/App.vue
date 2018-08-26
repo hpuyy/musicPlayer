@@ -30,13 +30,21 @@
 </script>
 
 <style>
-  @font-face {
-    font-family: 'iconfont';  /* project id 597493 */
+/*  @font-face {
+    font-family: 'iconfont';  !* project id 597493 *!
     src: url('//at.alicdn.com/t/font_597493_lxtqalp95h.eot');
     src: url('//at.alicdn.com/t/font_597493_lxtqalp95h.eot?#iefix') format('embedded-opentype'),
     url('//at.alicdn.com/t/font_597493_lxtqalp95h.woff') format('woff'),
     url('//at.alicdn.com/t/font_597493_lxtqalp95h.ttf') format('truetype'),
     url('//at.alicdn.com/t/font_597493_lxtqalp95h.svg#iconfont') format('svg');
+  }*/
+  @font-face {
+    font-family: 'iconfont';
+    src: url('./font/iconfont.eot');
+    src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('./font/iconfont.woff') format('woff'),
+    url('./font/iconfont.ttf') format('truetype'),
+    url('./font/iconfont.svg#iconfont') format('svg');
   }
   body::-webkit-scrollbar{
     width: 15px;

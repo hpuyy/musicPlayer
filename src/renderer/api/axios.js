@@ -1,9 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
 
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 8000;
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://127.0.0.1:9082';//项目中请求处理文件的路径
+axios.defaults.baseURL = 'http://127.0.0.1:9081';//项目中请求处理文件的路径
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 /**请求拦截

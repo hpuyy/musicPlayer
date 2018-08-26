@@ -6,54 +6,56 @@
       <li class="tag-name">歌单</li>
       <li class="tag-name">主播电台</li>
       <li class="tag-name">最新音乐</li>
-      <li class="tag-name">歌手</li>
+      <li class="tag-name" @click="">歌手</li>
     </ul>
-    <div class="carousel"
-         @mouseover="swiper('in')"
-         @mouseout="swiper('out')">
-      <swiper :options="swiperOption">
-        <swiper-slide><img :src="banner[0].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[1].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[2].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[3].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[4].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[5].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[6].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[7].picUrl"></swiper-slide>
-      </swiper>
-      <!--以下看需要添加-->
-      <div class="swiper-button-next" v-show="swiperNav"></div>
-      <div class="swiper-button-prev" v-show="swiperNav"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-    <div class="discover-menu">
-      <div class="menu-item">
-        <div class="item-logo icon-FM">&#xe606;</div>
-        <div class="item-name">私人FM</div>
+    <div class="discover-page-container">
+      <div class="carousel"
+           @mouseover="swiper('in')"
+           @mouseout="swiper('out')">
+        <swiper :options="swiperOption">
+          <swiper-slide><img :src="banner[0].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[1].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[2].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[3].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[4].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[5].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[6].picUrl"></swiper-slide>
+          <swiper-slide><img :src="banner[7].picUrl"></swiper-slide>
+        </swiper>
+        <!--以下看需要添加-->
+        <div class="swiper-button-next" v-show="swiperNav"></div>
+        <div class="swiper-button-prev" v-show="swiperNav"></div>
+        <div class="swiper-pagination"></div>
       </div>
-      <div class="menu-item center" @click="$router.push('/recommend/songs')">
-        <div class="item-logo">&#xe60e;</div>
-        <div class="item-name">每日歌曲推荐</div>
+      <div class="discover-menu">
+        <div class="menu-item">
+          <div class="item-logo icon-FM">&#xe606;</div>
+          <div class="item-name">私人FM</div>
+        </div>
+        <div class="menu-item center" @click="$router.push('/recommend/songs')">
+          <div class="item-logo">&#xe60e;</div>
+          <div class="item-name">每日歌曲推荐</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-logo">&#xe6c5;</div>
+          <div class="item-name">排行榜</div>
+        </div>
       </div>
-      <div class="menu-item">
-        <div class="item-logo">&#xe6c5;</div>
-        <div class="item-name">排行榜</div>
+      <div class="discover-recommend">
+        <header class="recommend-title">
+          <span class="icon-recommend">&#xe78c;</span>
+          推荐歌单
+          <span class="recommend-more">更多&#xe617;</span>
+        </header>
+        <ul class="recommend-bd">
+          <li class="recommend-item"
+              v-for="(item, index) in personalized"
+              @click="$router.push(`/songList?id=${item.id}`)">
+            <div class="item-pic"><img :src="item.picUrl"></div>
+            <div class="item-name">{{item.name}}</div>
+          </li>
+        </ul>
       </div>
-    </div>
-    <div class="discover-recommend">
-      <header class="recommend-title">
-        <span class="icon-recommend">&#xe78c;</span>
-        推荐歌单
-        <span class="recommend-more">更多&#xe617;</span>
-      </header>
-      <ul class="recommend-bd">
-        <li class="recommend-item"
-            v-for="(item, index) in personalized"
-            @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic"><img :src="item.picUrl"></div>
-          <div class="item-name">{{item.name}}</div>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -117,9 +119,11 @@
     created(){
       this.$store.dispatch('back/setFullPath', this.$route.fullPath);
       this.$store.dispatch('back/show', false);
+
       Banner().then((res)=>{
         this.banner = res.banners
       });
+
       Personalized().then((res)=>{
         this.personalized = res.result.slice(0,9);
       });
@@ -309,13 +313,8 @@
       .recommend-item{
         cursor: pointer;
         margin-bottom: 20px;
-        width: 30%;
         list-style: none;
         float: left;
-        &:nth-of-type(3n){
-          margin-right: 0;
-        }
-        margin-right: 5%;
         .item-pic img{
           width: 100%;
           height: 100%;
@@ -329,7 +328,38 @@
           line-height: 24px;
         }
       }
+      @media screen and (max-width: 870px){
+        .recommend-item{
+          width: 30% ;
+          margin-right: 5%;
+          &:nth-of-type(3n){
+            margin-right: 0;
+          }
+        }
+      }
+      @media screen and (min-width: 870px) and (max-width: 1100px){
+        .recommend-item{
+          width: 22% ;
+          margin-right: 4%;
+          &:nth-of-type(4n){
+            margin-right: 0;
+          }
+        }
+      }
+      @media screen and (min-width: 1100px){
+        .recommend-item{
+          width: 18% ;
+          margin-right: 2.5%;
+          &:nth-of-type(5n){
+            margin-right: 0;
+          }
+        }
+      }
     }
+  }
+  .discover-page-container{
+    max-width: 990px;
+    margin: 0 auto;
   }
 }
 </style>

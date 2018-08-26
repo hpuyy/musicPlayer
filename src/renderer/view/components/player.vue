@@ -81,7 +81,7 @@
         this.$refs.music.src = res.data[0].url;
         this.playInfo = this.$store.state.songList.songList[0];
       });
-      this.play();
+      // this.play();
     },
     watch:{
       '$store.state.songList.status': function (val, old) {
@@ -93,6 +93,11 @@
           }
           else{
             MusicUrl(data.songList[data.index].id).then((res)=>{
+              if(res.data[0].url == null || res.data[0].url == undefined){
+                this.$alert('歌曲已下架！自动播放下一曲。', '出错了');
+                this.next();
+                return;
+              }
               this.$refs.music.src = res.data[0].url;
               this.playInfo = data.songList[data.index];
               this.$refs.music.play();

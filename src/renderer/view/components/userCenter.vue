@@ -53,7 +53,7 @@
             <span v-else>已订购</span>
           </span>
         </div>
-        <div class="user-grade-item">
+        <div class="user-grade-item" @click="test">
           <span class="icon-cart">&#xe696;</span>
           <span class="grade">积分商城</span>
           <span class="icon-right">&#xe617;</span>
@@ -88,9 +88,6 @@
             localStorage.removeItem('userInfo');
             location.reload();
           }
-          else{
-            this.$alert('登入成功！', '温馨提示');
-          }
         });
         GetDetail(this.userInfo).then((res)=>{
           this.detail = res.profile;
@@ -99,12 +96,19 @@
       }
     },
     methods:{
+      test(){
+        QQ()
+      },
       login(){
         LoginCellphone(this.phone, this.pwd).then((res)=>{
+          this.userInfo = res.profile;
           localStorage.setItem('userInfo', JSON.stringify(res.profile));
           this.$store.dispatch('userCenter/Hide');
           this.$store.dispatch('userCenter/setInfo', res.profile);
           this.$alert('登入成功！', '温馨提示');
+        }, () => {
+          this.$alert('登入失败！', '未知错误');
+          localStorage.removeItem('userInfo');
         })
       }
     }
@@ -113,6 +117,7 @@
 
 <style lang="scss">
   @import "@/sass/variable.scss";
+
   .user-center{
     position: absolute;
     top: 30px;

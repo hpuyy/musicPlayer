@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default function (phone, pwd) {
   const require = new Promise((resolve, reject) => {
     $.ajax({
-      url: 'http://localhost:9082/login/cellphone',
+      url: 'http://localhost:9081/login/cellphone',
       method: 'get',
       data:{
         phone: phone,
@@ -13,8 +13,12 @@ export default function (phone, pwd) {
       xhrFields: {
         withCredentials: true
       },
+      timeout: 4000,
       success: function (data) {
         if(data.code === 200) resolve(data);
+      },
+      error: function () {
+        reject();
       }
     });
   });

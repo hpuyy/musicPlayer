@@ -17,6 +17,15 @@
         <li><div class="icon-fm">&#xe626;</div>我的电台</li>
         <li><div class="icon-collect">&#xe63c;</div>我的收藏</li>
       </ul>
+      <ul>
+        <li class="nav-list-title">我的歌单</li>
+        <li v-for="(item, i) in playList"
+            @click="gotoList(item.id)">
+          <div class="icon-song-list" v-if="i === 1">&#xe681;</div>
+          <div class="icon-song-list" v-else>&#xe760;</div>
+          {{item.name}}
+        </li>
+      </ul>
     </div>
     <footer class="user-msg">
       <img :src="$store.state.userCenter.userInfo.avatarUrl"
@@ -30,11 +39,19 @@
 </template>
 
 <script>
+  import UserPlaylist from '@/api/music/user_playlist';
+
   export default {
     name: "nav-list",
     data(){
       return{
+        playList: []
       }
+    },
+    created(){
+      UserPlaylist(this.$store.state.userCenter.userInfo.userId).then(res => {
+        this.playList = res.playlist;
+      });
     },
     methods:{
       userCenter(){
@@ -43,6 +60,9 @@
         else{
           this.$store.dispatch('userCenter/Show');
         }
+      },
+      gotoList(id){
+        this.$router.push(`/songList?id=${id}`);
       }
     }
   }
@@ -67,19 +87,25 @@
     overflow-y: scroll;
     height: calc(100% - 100px);
     margin-top: 40px;
+    .icon-song-list{
+      font-family: iconfont;
+      font-size: 16px;
+      vertical-align: middle;
+      color: #343434;
+      font-weight: bolder;
+    }
     &::-webkit-scrollbar{
-      /*width: 6px;*/
-      display: none;
+      width: 6px;
     }
     &::-webkit-scrollbar-button{
-      display: none;
+      width: 6px;
     }
     &::-webkit-scrollbar-track{
       background-color: rgba(0, 0, 0, 0);
       width: 6px;
     }
     &::-webkit-scrollbar-thumb{
-      background-color: #EEE;
+      background-color: #d5d5d5;
       border-radius: 6px;
       width: 6px;
     }
@@ -109,6 +135,9 @@
     line-height: 40px;
     position: relative;
     cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     &:hover{
       background-color: rgba(0, 0, 0, .08);
     }

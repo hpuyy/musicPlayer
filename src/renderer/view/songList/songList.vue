@@ -54,6 +54,13 @@
         this.playlist = res.playlist;
       });
     },
+    watch:{
+      '$route.query.id': function (val) {
+        playList(val).then(res => {
+          this.playlist = res.playlist;
+        });
+      }
+    },
     methods:{
       play(index){
         if(!this.saveData){
@@ -65,7 +72,9 @@
           localStorage.setItem('songList', JSON.stringify(songList));
         }
         this.$store.dispatch('songList/stop');
-        this.$store.dispatch('songList/play', index);
+        setTimeout(() => {
+          this.$store.dispatch('songList/play', index);
+        },10);
       }
     }
   }
@@ -96,6 +105,7 @@
       padding: 0 28px 0;
       box-sizing: border-box;
       border-bottom: 1px dashed #eee;
+      position: relative;
       .label{
         font-size: 12px;
         color: #6b6b6b;
@@ -106,13 +116,14 @@
         min-width: 100px;
         min-height: 100px;
         max-width: 180px;
+        max-height: 180px;
+        overflow: hidden;
         width: 28%;
         text-align: center;
         margin-right: 15px;
         font-size: 60px;
         &>img{
           width: 100%;
-          height: 100%;
         }
       }
       .content{
@@ -173,13 +184,15 @@
         }
       }
       .play-all{
-        margin: 25px 0 10px;
+        margin: 25px 0 0;
         font-size: 18px;
         line-height: 30px;
         color: #000;
         cursor: pointer;
         text-indent: 10px;
         padding-bottom: 10px;
+        position: absolute;
+        bottom: 0;
         span{
           font-family: iconfont;
           font-size: 16px;
