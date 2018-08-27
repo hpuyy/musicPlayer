@@ -24,8 +24,12 @@
     </header>
     <ul class="recommend-songs-list">
       <li class="song-list-item"
-          v-for="(item, index) in playlist.tracks" @click="play(index)">
-        <span class="playing" v-if="$store.state.songList.id == item.id">&#xe651;</span>
+          v-for="(item, index) in playlist.tracks"
+          @click="play(index)">
+        <span class="playing"
+              v-if="$store.state.songList.id == item.id">
+          &#xe651;
+        </span>
         <span class="index" v-else>{{index + 1}}</span>
         <span class="collect">&#xe681;</span>
         <span class="name">{{item.name}}</span>
@@ -45,14 +49,25 @@
     data(){
       return{
         playlist:{},
-        saveData: false
+        saveData: false,
+        timer: '',
+        loading: true
       }
     },
     created(){
-      this.$store.dispatch('back/show', true);
       playList(this.$route.query.id).then(res => {
         this.playlist = res.playlist;
       });
+    },
+    mounted(){
+      this.timer = this.$loading();
+    },
+    updated(){
+      if(this.loading){
+        clearTimeout(this.timer);
+        this.$loading(true);
+        this.loading = false;
+      }
     },
     watch:{
       '$route.query.id': function (val) {

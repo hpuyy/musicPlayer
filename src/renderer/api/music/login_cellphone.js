@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default function (phone, pwd) {
   const require = new Promise((resolve, reject) => {
     $.ajax({
-      url: 'http://localhost:9081/login/cellphone',
+      url: 'http://localhost:9082/login/cellphone',
       method: 'get',
       data:{
         phone: phone,

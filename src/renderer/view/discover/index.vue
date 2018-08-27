@@ -120,7 +120,6 @@
     },
     created(){
       this.$store.dispatch('back/setFullPath', this.$route.fullPath);
-      this.$store.dispatch('back/show', false);
 
       Banner().then((res)=>{
         this.banner = res.banners

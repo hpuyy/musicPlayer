@@ -32,9 +32,6 @@ export default new Router({
     },{
       path: '/songList',
       name: 'songList',
-      meta: {
-        keepAlive: true
-      },
       component: songList
     }
   ]

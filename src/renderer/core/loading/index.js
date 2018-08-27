@@ -1,4 +1,4 @@
-let html = "<img src='static/loading.svg' style='margin-top: 30%; margin-left: calc(50% + 110px); transform: translate(-50%, -50%)'>";
+let html = "<img src='static/loading.svg' style='position: relative; top: 47%; margin-left: calc(50% + 110px); transform: translate(-50%, -50%)'>";
 
 let el = document.createElement("div");
 

@@ -10,8 +10,13 @@
     </header>
     <ul class="recommend-songs-list">
       <li class="song-list-item"
-          v-for="(item, index) in songList" @click="play(index)">
-        <span class="index">{{index + 1}}</span>
+          v-for="(item, index) in songList"
+          @click="play(index)">
+        <span class="playing"
+              v-if="$store.state.songList.id == item.id">
+          &#xe651;
+        </span>
+        <span class="index" v-else>{{index + 1}}</span>
         <span class="collect">&#xe681;</span>
         <span class="name">{{item.name}}</span>
         <span class="type">&#xe60a;</span>
@@ -31,14 +36,25 @@
       return{
         date: new Date().getDate(),
         songList: [],
-        saveData: false
+        saveData: false,
+        timer: '',
+        loading: true
       }
     },
     created(){
-      this.$store.dispatch('back/show', true);
       Daily().then((res)=>{
         this.songList = res.recommend;
       });
+    },
+    mounted(){
+      this.timer = this.$loading();
+    },
+    updated(){
+      if(this.loading){
+        clearTimeout(this.timer);
+        this.$loading(true);
+        this.loading = false;
+      }
     },
     methods:{
       play(index){
@@ -140,6 +156,14 @@
         }
         .index{
           text-align: center;
+          width: 20px;
+        }
+        .playing{
+          font-family: iconfont;
+          font-size: 18px;
+          color: $theme-color;
+          text-align: center;
+          font-weight: bolder;
           width: 20px;
         }
         .collect{
