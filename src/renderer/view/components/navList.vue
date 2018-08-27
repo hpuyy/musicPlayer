@@ -21,7 +21,7 @@
         <li class="nav-list-title">我的歌单</li>
         <li v-for="(item, i) in playList"
             @click="gotoList(item.id)">
-          <div class="icon-song-list" v-if="i === 1">&#xe681;</div>
+          <div class="icon-song-list" v-if="i === 0">&#xe681;</div>
           <div class="icon-song-list" v-else>&#xe760;</div>
           {{item.name}}
         </li>
@@ -226,6 +226,7 @@
       height: 30px;
       border-radius: 50%;
       vertical-align: middle;
+      cursor: pointer;
     }
     .user-name{
       display: inline-block;

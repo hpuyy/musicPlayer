@@ -16,6 +16,7 @@ export default function (phone, pwd) {
       timeout: 4000,
       success: function (data) {
         if(data.code === 200) resolve(data);
+        else reject();
       },
       error: function () {
         reject();

@@ -14,18 +14,18 @@ export default function showAlert(text,title='提示'){
       },
       methods:{
         close() {
-          resolve('ok');
+          resolve();
           dialogClose(vm);
         }
       },
       template: '<alert @close="close" :title="this.title" :text="this.text"></alert>',
       components: {alert}
-    }
+    };
 
-    let creator = Vue.extend(alertOptions)
-    vm = new creator().$mount()
+    let creator = Vue.extend(alertOptions);
+    vm = new creator().$mount();
     dialogContainer.appendChild(vm.$el)
-  })
+  });
   return {vm,exec};
 }
 //删除组件vm（从文本流中移除，并在vue中销毁）

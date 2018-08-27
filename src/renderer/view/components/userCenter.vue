@@ -84,9 +84,10 @@
       if(this.userInfo !== undefined){
         Refresh().then((res)=>{
           if(res.code !== 200){
-            this.$alert('登入失败！', '提示');
+            this.$alert('登入失败！', '提示').exec.then(()=>{
+              location.reload();
+            });
             localStorage.removeItem('userInfo');
-            location.reload();
           }
         });
         GetDetail(this.userInfo).then((res)=>{
@@ -105,7 +106,9 @@
           localStorage.setItem('userInfo', JSON.stringify(res.profile));
           this.$store.dispatch('userCenter/Hide');
           this.$store.dispatch('userCenter/setInfo', res.profile);
-          this.$alert('登入成功！', '温馨提示');
+          this.$alert('登入成功！', '温馨提示').exec.then(() =>{
+            location.reload();
+          });
         }, () => {
           this.$alert('登入失败！', '未知错误');
           localStorage.removeItem('userInfo');

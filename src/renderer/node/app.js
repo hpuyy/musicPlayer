@@ -4,9 +4,6 @@ const path = require("path");
 const fs = require("fs");
 const app1 = express();
 let cache = apicache.middleware;
-// let _time = new Date().getTime();
-// const url=require('url');
-// let superagent = require('superagent');
 
 /*app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

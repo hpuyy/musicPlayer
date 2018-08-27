@@ -29,7 +29,7 @@ function createWindow () {
   /**
    * Initial window options
    */
-  win = new electron.BrowserWindow({width: 800, height: 550, frame: false, minWidth: 755});
+  win = new electron.BrowserWindow({width: 800, height: 550, frame: false, minWidth: 755, icon: path.join(__static, 'icon.ico')});
 
   win.loadURL(winURL);
 
@@ -62,13 +62,13 @@ function createWindow () {
   ];
 
   //系统托盘图标目录
-  appTray = new Tray(path.join(__static, 'logo.png'));//app.ico是app目录下的ico文件
+  appTray = new Tray(path.join(__static, 'icon_min.ico'));//app.ico是app目录下的ico文件
 
   //图标的上下文菜单
   const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
 
   //设置此托盘图标的悬停提示内容
-  appTray.setToolTip('我的托盘图标');
+  appTray.setToolTip('网易云音乐');
 
   //设置此图标的上下文菜单
   appTray.setContextMenu(contextMenu);

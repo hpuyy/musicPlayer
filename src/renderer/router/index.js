@@ -14,6 +14,9 @@ export default new Router({
     {
       path: '/',
       name: 'discover',
+      meta: {
+        keepAlive: true
+      },
       component: discover
     },
     {
@@ -22,10 +25,16 @@ export default new Router({
     },{
       path: '/recommend/songs',
       name: 'recommendSongs',
+      meta: {
+        keepAlive: true
+      },
       component: recommendSongs
     },{
       path: '/songList',
       name: 'songList',
+      meta: {
+        keepAlive: true
+      },
       component: songList
     }
   ]

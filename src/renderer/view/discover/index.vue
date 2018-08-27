@@ -1,5 +1,5 @@
 <template>
-  <div class="discover-page-bd">
+  <div class="discover-page-bd" id="discover-page-bd">
     <div class="discover-page-title">发现音乐</div>
     <ul class="discover-page-tag">
       <li class="tag-name checked">个性推荐</li>
@@ -109,7 +109,9 @@
         },
         swiperNav: false,
         banner: [],
-        personalized: []
+        personalized: [],
+        loading: true,
+        timer: ''
       }
     },
     components:{
@@ -129,13 +131,22 @@
       });
     },
     mounted(){
-      /*if(this.$store.state.userCenter.userInfo.userId != undefined){
-        RecommendResource().then(()=>{
-
-        });
-      }*/
+      this.timer = this.$loading();
+    },
+    updated(){
+      if(this.loading){
+        clearTimeout(this.timer);
+        this.$loading(true);
+        this.loading = false;
+      }
     },
     methods:{
+      /*clearCookie(){
+        let myDate=new Date();
+        myDate.setTime(-1000);
+        document.cookie = '__csrf' + "=''; expires="+myDate.toGMTString();
+        localStorage.removeItem('userInfo');
+      },*/
       swiper(type){
         if(type === 'in'){
           this.swiperNav = true;
@@ -165,6 +176,7 @@
     width: 10px;
   }
 .discover-page-bd{
+  position: relative;
   padding: 16px 18px;
   .discover-page-title{
     color: #6b6b6b;

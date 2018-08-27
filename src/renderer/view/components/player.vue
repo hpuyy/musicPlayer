@@ -35,7 +35,7 @@
           </div>
         </div>
         <audio ref="music"
-               src="static/song2.mp3"
+               src=""
                @timeupdate="progress()">
         </audio>
       </div>
@@ -59,7 +59,7 @@
     name: "player",
     data(){
       return{
-        pic: 'static/default_pic.jpg',
+        pic: '',
         type: 'sto',
         collected: false,
         duration: 0,
@@ -77,9 +77,11 @@
       }
     },
     mounted(){
+      console.log(this.$store.state.songList.songList[0]);
       MusicUrl(this.$store.state.songList.songList[0].id).then((res)=>{
         this.$refs.music.src = res.data[0].url;
         this.playInfo = this.$store.state.songList.songList[0];
+        this.pic = this.playInfo.album?this.playInfo.album.picUrl : this.playInfo.al.picUrl;
       });
       // this.play();
     },
@@ -100,6 +102,7 @@
               }
               this.$refs.music.src = res.data[0].url;
               this.playInfo = data.songList[data.index];
+              this.pic = this.playInfo.album?this.playInfo.album.picUrl : this.playInfo.al.picUrl;
               this.$refs.music.play();
             });
           }
@@ -169,7 +172,6 @@
         this.durationShow = this.timeTransform(this.duration);
         this.currentTimeShow = this.timeTransform(this.currentTime);
         this.$refs.music.addEventListener('ended',()=>{
-          console.log("end");
           this.next();
         });
       },
@@ -214,6 +216,11 @@
     height: 60px;
     line-height: 60px;
     padding: 0 30px;
+    .pre, .play-bd, .next{
+      &:hover{
+        box-shadow: 0 0 5px 1px $theme-color;
+      }
+    }
     &>div{
       display: inline-block;
       background-color: $theme-color;
@@ -286,6 +293,9 @@
         right: -8px;
         top: -7px;
         cursor: pointer;
+        &:hover{
+          box-shadow: 0 0 6px 1px $theme-color;
+        }
         background-color: rgba(255, 255, 255, 0.51);
         .dot{
           background-color: $theme-color;

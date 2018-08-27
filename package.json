@@ -2,7 +2,7 @@
   "name": "cloud-music",
   "productName": "cloud-music",
   "version": "0.0.0",
-  "author": "forsard@jmu.edu.cn",
+  "author": "forward@jmu.edu.cn",
   "description": "An electron-vue project",
   "license": null,
   "main": "./dist/electron/main.js",

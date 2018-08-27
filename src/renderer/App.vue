@@ -4,7 +4,12 @@
     <NavList />
     <div class="app-container">
       <transition name="opacity">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view v-if="$route.meta.keepAlive"></router-view>
+        </keep-alive>
+      </transition>
+      <transition name="opacity">
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
       </transition>
     </div>
     <UserCenter />
@@ -75,6 +80,7 @@
     overflow-y: auto;
     vertical-align: top;
     height: calc(100% - 90px);
+    overflow-x: hidden;
   }
   .slide-left-enter-active, .slide-left-leave-to{
     transition: all .3s;
