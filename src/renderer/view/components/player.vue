@@ -54,6 +54,7 @@
   // import readDir from '@/js/readDir';
   // import NewSong from '@/api/music/personalized_newsong';
   import MusicUrl from '@/api/music/music_url';
+  const globalShortcut = require('electron').remote.globalShortcut;
 
   export default {
     name: "player",
@@ -76,8 +77,21 @@
         playerControl: false
       }
     },
+    created(){
+      globalShortcut.register('CommandOrControl + Right', () => {
+        this.next();
+      });
+      globalShortcut.register('CommandOrControl + Left', () => {
+        this.prev();
+      });
+      globalShortcut.register('CommandOrControl + Down', () => {
+        this.play();
+      });
+      globalShortcut.register('CommandOrControl + R', () => {
+        location.reload();
+      })
+    },
     mounted(){
-      console.log(this.$store.state.songList.songList[0]);
       MusicUrl(this.$store.state.songList.songList[0].id).then((res)=>{
         this.$refs.music.src = res.data[0].url;
         this.playInfo = this.$store.state.songList.songList[0];
@@ -142,7 +156,6 @@
       next(){
         let index = this.$store.state.songList.index + 1;
         if(index === this.$store.state.songList.songList.length) index = 0;
-        console.log(this.$store.state.songList.status);
         this.$store.dispatch('songList/stop');
         setTimeout(()=>{this.$store.dispatch('songList/play', index)}, 10);
       },
