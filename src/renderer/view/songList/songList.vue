@@ -55,6 +55,7 @@
       }
     },
     created(){
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
       playList(this.$route.query.id).then(res => {
         this.playlist = res.playlist;
       });

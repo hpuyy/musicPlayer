@@ -42,6 +42,7 @@
       }
     },
     created(){
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
       Daily().then((res)=>{
         this.songList = res.recommend;
       });

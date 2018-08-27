@@ -49,7 +49,7 @@
 
       },
       back(){
-        this.$router.push(this.$store.state.back.fullPath[0] || '/');
+        this.$router.push(this.$store.state.back.fullPath[1] || '/');
         this.$store.dispatch('back/removePath');
       }
     }
