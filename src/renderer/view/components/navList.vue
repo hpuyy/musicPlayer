@@ -3,8 +3,15 @@
     <div class="nav-list-bd">
       <ul>
         <li class="nav-list-open"><div class="icon-open">&#xe667;</div></li>
-        <li><div class="icon-search">&#xe63b;</div>搜索</li>
-        <li class="checked"><div class="icon-music">&#xe680;</div>发现音乐 </li>
+        <li @click="navGuide('/search')"
+            :class="{checked: $route.fullPath == '/search'}">
+          <div class="icon-search">&#xe63b;</div>
+          搜索
+        </li>
+        <li :class="{checked: $route.fullPath.match(/^(\/discover)|(\/recommend)|(\/songList)/)}">
+          <div class="icon-music">&#xe680;</div>
+          发现音乐
+        </li>
         <li><div class="icon-mv">&#xe604;</div>MV</li>
         <li><div class="icon-fri">&#xe61a;</div>朋友</li>
       </ul>
@@ -45,7 +52,8 @@
     name: "nav-list",
     data(){
       return{
-        playList: []
+        playList: [],
+        type: 2
       }
     },
     created(){
@@ -70,6 +78,9 @@
       },
       gotoList(id){
         this.$router.push(`/songList?id=${id}`);
+      },
+      navGuide(url){
+        this.$router.push(url);
       }
     }
   }

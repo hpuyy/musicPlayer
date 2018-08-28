@@ -94,7 +94,7 @@ app1.use('/top/playlist', Wrap(require("./router/top_playlist")));
 app1.use('/playlist/catlist', Wrap(require("./router/playlist_catlist")));
 app1.use('/playlist/subscribe', Wrap(require("./router/playlist_subscribe")));
 app1.use('/like', Wrap(require("./router/like")));
-app1.use('/like/list', Wrap(require("./router/likelist")));
+app1.use('/search', Wrap(require("./router/search")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));

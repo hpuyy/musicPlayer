@@ -102,8 +102,10 @@
         this.$refs.music.src = res.data[0].url;
         this.playInfo = this.$store.state.songList.songList[0];
         this.pic = this.playInfo.album?this.playInfo.album.picUrl : this.playInfo.al.picUrl;
+        if(this.pic == undefined){
+          this.pic = 'static/icon.ico';
+        }
       });
-      // this.play();
     },
     watch:{
       '$store.state.songList.status': function (val, old) {
@@ -123,6 +125,9 @@
               this.$refs.music.src = res.data[0].url;
               this.playInfo = data.songList[data.index];
               this.pic = this.playInfo.album?this.playInfo.album.picUrl : this.playInfo.al.picUrl;
+              if(this.pic == undefined){
+                this.pic = 'static/icon.ico';
+              }
               this.$refs.music.play();
             });
           }
