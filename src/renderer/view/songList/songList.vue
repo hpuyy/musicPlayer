@@ -13,7 +13,16 @@
           <span>{{new Date(playlist.createTime).toLocaleDateString()}} 创建</span>
         </div>
         <div class="operate">
-          <div>收藏({{playlist.subscribedCount}})</div>
+          <div @click="subscribe(playlist.id)"
+               v-if="!playlist.subscribed">
+              收藏({{playlist.subscribedCount}})
+          </div>
+          <div v-else
+               class="subscribed"
+               title="已收藏"
+               @click="subscribe(playlist.id, 2)">
+              收藏({{playlist.subscribedCount}})
+          </div>
           <div>评论({{playlist.commentCount}})</div>
           <div>分享({{playlist.shareCount}})</div>
         </div>
@@ -31,7 +40,7 @@
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect">&#xe681;</span>
+        <span class="collect" @click="collect(item.id)">&#xe681;</span>
         <span class="name">{{item.name}}</span>
         <span class="type">&#xe60a;</span>
         <span class="album">{{item.al.name}}</span>
@@ -43,6 +52,8 @@
 
 <script>
   import playList from '@/api/music/playlist_detail';
+  import Subscribe from '@/api/music/playlist_subscribe';
+  import Like from '@/api/music/like';
 
   export default {
     name: "songList",
@@ -56,9 +67,7 @@
     },
     created(){
       this.$store.dispatch('back/setFullPath', this.$route.fullPath);
-      playList(this.$route.query.id).then(res => {
-        this.playlist = res.playlist;
-      });
+      this.init();
     },
     mounted(){
       this.timer = this.$loading();
@@ -78,6 +87,23 @@
       }
     },
     methods:{
+      init(){
+        playList(this.$route.query.id).then(res => {
+          this.playlist = res.playlist;
+        });
+      },
+      collect(id, like = true){
+        Like(id, like).then(() => {
+          this.$alert('收藏成功(注:当前系统无法显示收藏状态)', '温馨提示');
+        })
+      },
+      subscribe(id, t = 1){
+        Subscribe(t, id).then((res) => {
+          if(t === 1) this.$alert('收藏成功！').exec.then(() => { this.init() });
+          else this.$alert('已取消收藏！').exec.then(() => { this.init() });
+          this.$store.dispatch('playlistRe/reload');
+        })
+      },
       play(index){
         if(!this.saveData){
           let songList = this.playlist.tracks.map((data, index) => {
@@ -171,6 +197,9 @@
         }
         .operate{
           margin-top: 10px;
+          .subscribed{
+            color: $theme-color;
+          }
           div{
             display: inline-block;
             line-height: 23px;
@@ -247,7 +276,11 @@
         .collect{
           text-align: center;
           font-family: iconfont;
-          width: 20px;
+          width: 20px;cursor: pointer;
+          &:hover{
+            text-shadow: 0 0 5px $theme-color;
+            color: $theme-color;
+          }
         }
         .name{
           min-width: 180px;

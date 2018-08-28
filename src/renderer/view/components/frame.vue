@@ -1,7 +1,7 @@
 <template>
   <header class="frame-head">
     <span class="frame-head-back"
-          v-show="$route.fullPath !== '/'"
+          v-show="$route.fullPath !== '/discover'"
           @click="back">
           &#xe641;
     </span>

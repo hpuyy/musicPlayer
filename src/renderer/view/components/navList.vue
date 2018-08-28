@@ -53,6 +53,13 @@
         this.playList = res.playlist;
       });
     },
+    watch:{
+      '$store.state.playlistRe.reload': function () {
+        UserPlaylist(this.$store.state.userCenter.userInfo.userId).then(res => {
+          this.playList = res.playlist;
+        });
+      }
+    },
     methods:{
       userCenter(){
         if(this.$store.state.userCenter.show)
@@ -140,6 +147,7 @@
     overflow: hidden;
     &:hover{
       background-color: rgba(0, 0, 0, .08);
+      text-shadow: 3px 3px 1px #7f7f7f;
     }
     [class^="icon-"], [class*=" icon-"]{
       font-family: iconfont;
@@ -208,6 +216,7 @@
     cursor: default;
     &:hover{
       background-color: transparent;
+      text-shadow: none;
     }
   }
   .user-msg{

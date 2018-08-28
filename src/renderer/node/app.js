@@ -27,7 +27,7 @@ app1.all("*", function(req, res, next) {
 
 const onlyStatus200 = (req, res) => res.statusCode === 200;
 
-app1.use(cache("2 minutes", onlyStatus200));
+const cacheSuccesses = cache('2 minutes', onlyStatus200);
 
 app1.use(express.static(path.resolve(__dirname, "public")));
 
@@ -90,6 +90,11 @@ app1.use('/recommend/resource', Wrap(require("./router/recommend_resource")));
 app1.use('/recommend/songs', Wrap(require("./router/recommend_songs")));
 app1.use('/playlist/detail', Wrap(require("./router/playlist_detail")));
 app1.use('/user/playlist', Wrap(require("./router/user_playlist")));
+app1.use('/top/playlist', Wrap(require("./router/top_playlist")));
+app1.use('/playlist/catlist', Wrap(require("./router/playlist_catlist")));
+app1.use('/playlist/subscribe', Wrap(require("./router/playlist_subscribe")));
+app1.use('/like', Wrap(require("./router/like")));
+app1.use('/like/list', Wrap(require("./router/likelist")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));

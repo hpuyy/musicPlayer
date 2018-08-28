@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import  userCenter from './modules/userCenter'
 import  songList from './modules/songList'
 import  back from './modules/back'
+import  playlistRe from './modules/playlistRe'
 
 Vue.use(Vuex);
 
@@ -81,6 +82,7 @@ export default new Vuex.Store({
   modules:{
     userCenter,
     songList,
-    back
+    back,
+    playlistRe
   }
 })

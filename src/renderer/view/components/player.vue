@@ -81,15 +81,21 @@
       globalShortcut.register('CommandOrControl + Right', () => {
         this.next();
       });
-      globalShortcut.register('CommandOrControl + Left', () => {
+      globalShortcut.register('CommandOrControl + PageUp', () => {
+        this.prev();
+      });
+      globalShortcut.register('CommandOrControl + PageDown', () => {
         this.prev();
       });
       globalShortcut.register('CommandOrControl + Down', () => {
         this.play();
       });
-      globalShortcut.register('CommandOrControl + R', () => {
-        location.reload();
-      })
+      globalShortcut.register('CommandOrControl + End', () => {
+        this.play();
+      });
+      // globalShortcut.register('CommandOrControl + R', () => {
+      //   location.reload();
+      // })
     },
     mounted(){
       MusicUrl(this.$store.state.songList.songList[0].id).then((res)=>{
