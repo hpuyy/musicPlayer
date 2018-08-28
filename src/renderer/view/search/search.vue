@@ -1,7 +1,10 @@
 <template>
   <div class="search-sys-bd">
     <div style="margin-bottom: 20px;">
-      <input type="text" class="search-sys-input" placeholder="发现好音乐" v-model="keywords">
+      <input type="text"
+             class="search-sys-input"
+             placeholder="发现好音乐"
+             v-model="keywords" @keydown="enterPress()" @focus="clear($event)">
       <span class="icon-search" @click="search">&#xe63b;</span>
     </div>
     <ul class="recommend-songs-list">
@@ -20,6 +23,8 @@
         <span class="artist">{{item.artists.map(art=>{return art.name}).join('、')}}</span>
       </li>
     </ul>
+    <div class="load-more" @click="loadMore" v-if="searchTag">··········点击加载更多··········</div>
+    <div class="load-more" v-else>··········发现好音乐··········</div>
   </div>
 </template>
 
@@ -30,12 +35,23 @@
     data(){
       return{
         keywords: '',
-        result: []
+        result: [],
+        offset: 0,
+        searchTag: false
       }
     },
     methods:{
+      enterPress(){
+        if(event.keyCode == 13){
+          this.search();
+        }
+      },
+      clear(e){
+        e.currentTarget.select();
+      },
       search(){
-        Search("刘若英").then((res) => {
+        this.searchTag = true;
+        Search(this.keywords).then((res) => {
           this.result = res.result.songs
         });
       },
@@ -43,6 +59,11 @@
         Like(id, like).then(() => {
           this.$alert('收藏成功(注:当前系统无法显示收藏状态)', '温馨提示');
         })
+      },
+      loadMore(){
+        Search(this.keywords, this.offset += 30).then((res) => {
+          this.result = this.result.concat(res.result.songs);
+        });
       },
       play(index){
         if(!this.saveData){
@@ -80,6 +101,16 @@
       border-radius: 10px;
       width: 8px;
     }
+    .load-more{
+      text-align: center;
+      padding: 10px 0;
+      cursor: pointer;
+      color: #818181;
+      &:hover{
+        text-shadow: 0 0 5px $theme-color;
+        color: #fff;
+      }
+    }
     position: relative;
     .icon-search{
       font-family: iconfont;
@@ -103,8 +134,7 @@
       }
     }
     .recommend-songs-list{
-      padding: 0 28px 50px;
-      border-top: 1px dashed #cfcfcf;
+      padding: 0 28px 20px;
       margin: 0;
       list-style: none;
       .song-list-item{
