@@ -79,10 +79,10 @@
       globalShortcut.register('CommandOrControl + Right', () => {
         this.next();
       });
-      globalShortcut.register('CommandOrControl + Down', () => {
-        this.play();
+      globalShortcut.register('CommandOrControl + Left', () => {
+        this.prev();
       });
-      globalShortcut.register('CommandOrControl + End', () => {
+      globalShortcut.register('CommandOrControl + Down', () => {
         this.play();
       });
     },
