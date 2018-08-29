@@ -17,7 +17,9 @@
       </ul>
       <ul>
         <li class="nav-list-title">我的音乐</li>
-        <li><div class="icon-local">&#xe605;</div>本地音乐</li>
+        <li :class="{checked: $route.fullPath == '/localMusic'}" @click="navGuide('/localMusic')">
+          <div class="icon-local">&#xe605;</div>本地音乐
+        </li>
         <li><div class="icon-down">&#xe63a;</div>下载管理</li>
         <li><div class="icon-recent">&#xe661;</div>最近播放</li>
         <li><div class="icon-cloud">&#xe654;</div>我的音乐云盘</li>

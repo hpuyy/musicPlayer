@@ -1,5 +1,7 @@
 const electron = require('electron');
 const fs = require("fs");
+const id3 = require("node-id3");
+
 
 function readFileList(path, filesList) {
   let files = fs.readdirSync(path);
@@ -7,7 +9,7 @@ function readFileList(path, filesList) {
     let stat = fs.statSync(path + itm);
     if (stat.isDirectory()) {
       //递归读取文件
-      readFileList(path + itm + "/", filesList)
+      readFileList(path + itm + "\\", filesList)
     } else {
       let obj = {};   //定义一个对象存放文件的路径和名字
       // obj.path = path.replace(/[\\\/]$/, "");    //路径
@@ -17,6 +19,7 @@ function readFileList(path, filesList) {
     }
   })
 }
+
 
 function getFileList(path) {
   let filesList = [];

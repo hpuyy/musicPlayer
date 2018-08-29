@@ -8,6 +8,7 @@ import discover_r from './discover/discover';
 const recommendSongs = resolve => require(['@/view/recommend/recommendSongs'], resolve);
 const songList = resolve => require(['@/view/songList/songList'], resolve);
 const search = resolve => require(['@/view/search/search'], resolve);
+const localMusic = resolve => require(['@/view/localMusic/localMusic'], resolve);
 
 
 Vue.use(Router);
@@ -38,6 +39,13 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search,
+      meta: {
+        keepAlive: true
+      }
+    },{
+      path: '/localMusic',
+      name: 'localMusic',
+      component: localMusic,
       meta: {
         keepAlive: true
       }

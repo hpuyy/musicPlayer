@@ -22,7 +22,7 @@
       <div class="music-name">
         <span class="name">{{playInfo.name || "当前无正在播放歌曲"}}</span>
         <span class="author">
-          - {{playInfo.name? playInfo.artists.map((art)=>{ return art.name}).join('、') : "未知"}}
+          - {{playInfo.artists? playInfo.artists.map((art)=>{ return art.name}).join('、') : "未知"}}
         </span>
         <div class="timer">
           <span>{{currentTimeShow}}</span>
@@ -51,8 +51,6 @@
 </template>
 
 <script>
-  // import readDir from '@/js/readDir';
-  // import NewSong from '@/api/music/personalized_newsong';
   import MusicUrl from '@/api/music/music_url';
   const globalShortcut = require('electron').remote.globalShortcut;
 
@@ -107,6 +105,13 @@
             this.playerControl = false;
           }
           else{
+            if(data.isLocal){
+              this.$refs.music.src = data.localMusic[data.index].url;
+              this.playInfo = data.localMusic[data.index];
+              this.$refs.music.play();
+              this.pic = 'static/icon.ico';
+              return;
+            }
             MusicUrl(data.songList[data.index].id).then((res)=>{
               if(res.data[0].url == null || res.data[0].url == undefined){
                 this.$alert('歌曲已下架！自动播放下一曲。', '出错了');
@@ -151,13 +156,23 @@
       },
       prev(){
         let index = this.$store.state.songList.index - 1;
-        if(index === -1) index = this.$store.state.songList.songList.length - 1;
+        if(this.$store.state.songList.isLocal){
+          if(index === -1) index = this.$store.state.songList.localMusic.length - 1;
+        }
+        else{
+          if(index === -1) index = this.$store.state.songList.songList.length - 1;
+        }
         this.$store.dispatch('songList/stop');
         setTimeout(()=>{this.$store.dispatch('songList/play', index)}, 10);
       },
       next(){
         let index = this.$store.state.songList.index + 1;
-        if(index === this.$store.state.songList.songList.length) index = 0;
+        if(this.$store.state.songList.isLocal){
+          if(index === this.$store.state.songList.localMusic.length) index = 0;
+        }
+        else{
+          if(index === this.$store.state.songList.songList.length) index = 0;
+        }
         this.$store.dispatch('songList/stop');
         setTimeout(()=>{this.$store.dispatch('songList/play', index)}, 10);
       },

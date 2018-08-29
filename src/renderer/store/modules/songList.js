@@ -2,7 +2,9 @@ let state = {
   index: 0,
   status: false,
   id: '',
-  songList: JSON.parse(localStorage.getItem('songList')) || []
+  songList: JSON.parse(localStorage.getItem('songList')) || [],
+  localMusic: JSON.parse(localStorage.getItem('localMusic')) || [],
+  isLocal: false
 };
 
 let getters = {
@@ -21,10 +23,20 @@ let getters = {
 
 let mutations = {
   setSongList(state,data){
-    state.songList = data
+    state.songList = data;
+    state.isLocal = false;
+  },
+  setLocalMusic(state,data){
+    state.localMusic = data;
+    state.isLocal = true;
   },
   play(state,index){
-    state.id = state.songList[index].id;
+    if(state.isLocal){
+      state.id = state.localMusic[index].id;
+    }
+    else{
+      state.id = state.songList[index].id;
+    }
     state.index = index;
     state.status = true;
   },
@@ -36,6 +48,9 @@ let mutations = {
 let actions = {
   setSongList({commit}, data){
     commit('setSongList', data);
+  },
+  setLocalMusic({commit}, data){
+    commit('setLocalMusic', data);
   },
   play({commit}, index){
     commit('play', index);
