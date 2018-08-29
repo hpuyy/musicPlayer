@@ -7,6 +7,7 @@
     </span>
     <span class="title">网易云音乐</span>
     <div class="frame-opt">
+      <colorPicker v-model="color" class="picker"></colorPicker>
       <div class="item min" @click="changeSize('min')">&#xe6b7;</div>
       <div class="item max"
            @click="changeSize('max')"
@@ -29,7 +30,8 @@
     name: "frame",
     data(){
       return{
-        isMaxSize: false
+        isMaxSize: false,
+        color: ''
       }
     },
     methods:{
@@ -88,11 +90,14 @@
     padding-left: 10px;
   }
   .frame-opt{
+    .picker{
+      display: inline-block;
+      vertical-align: middle;
+    }
     -webkit-app-region: no-drag;
     display: inline-block;
     float: right;
     height: 30px;
-    overflow: hidden;
     z-index: 1000;
     font-family: iconfont;
     .item{
