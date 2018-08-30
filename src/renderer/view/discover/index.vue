@@ -2,11 +2,11 @@
   <div class="discover-page-bd" id="discover-page-bd">
     <div class="discover-page-title">发现音乐</div>
     <ul class="discover-page-tag">
-      <li :class="['tag-name',{'checked' : $route.fullPath == '/discover'}]"
+      <li :class="['tag-name',{'checked T-FT T-BD' : $route.fullPath == '/discover'}]"
           @click="$router.push('/discover')">
         个性推荐
       </li>
-      <li :class="['tag-name',{'checked' : $route.fullPath == '/discover/playlist'}]"
+      <li :class="['tag-name',{'checked T-FT T-BD' : $route.fullPath == '/discover/playlist'}]"
           @click="$router.push('/discover/playlist')">
         歌单
       </li>

@@ -2,7 +2,7 @@
   <div class="recommend-songs">
     <header class="recommend-songs-bg">
       <label for="file_input">
-        <div class="date" id="drag">+</div>
+        <div class="date T-FT" id="drag">+</div>
       </label>
       <input type="file"
              id="file_input"
@@ -14,7 +14,7 @@
         <div class="explain">系统自动过滤音频文件，当前支持MP3、OGG、WAV</div>
       </div>
       <div class="play-all">
-        <span class="icon-play">&#xe624;</span>播放全部
+        <span class="icon-play T-FT">&#xe624;</span>播放全部
         <span class="mul-remove" @click="remove">
           <span v-if="!del">批量移除</span>
           <span v-else @click.stop="saveEdit">保存</span>
@@ -25,17 +25,17 @@
       <li class="song-list-item"
           v-for="(item, index) in dataList"
           @click="play(index)">
-        <span class="playing"
+        <span class="playing T-FT"
               v-if="$store.state.songList.id == item.id">
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
         <span class="name">{{item.name}}</span>
-        <span class="type del"
+        <span class="type del T-FT T-TSD-H"
               v-show="del"
               @click.stop="removeLocalMusic(item.id)">&#xe602;
         </span>
-        <span class="type">&#xe60a;</span>
+        <span class="type T-FT">&#xe60a;</span>
       </li>
     </ul>
   </div>

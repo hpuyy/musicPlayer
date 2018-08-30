@@ -1,5 +1,5 @@
 <template>
-  <header class="frame-head">
+  <header class="frame-head T-BG">
     <span class="frame-head-back"
           v-show="$route.fullPath !== '/discover'"
           @click="back">
@@ -7,7 +7,8 @@
     </span>
     <span class="title">网易云音乐</span>
     <div class="frame-opt">
-      <colorPicker v-model="color" class="picker"></colorPicker>
+      <span class="theme">&#xe664;</span>
+      <colorPicker v-model="color" id="picker" class="picker" @change="setTheme"></colorPicker>
       <div class="item min" @click="changeSize('min')">&#xe6b7;</div>
       <div class="item max"
            @click="changeSize('max')"
@@ -34,7 +35,29 @@
         color: ''
       }
     },
+    created(){
+      this.color = JSON.parse(localStorage.getItem('Theme')).color;
+      this.setTheme;
+    },
+    mounted(){
+      this.setTheme();
+    },
     methods:{
+      setTheme(){
+        let themeData = {
+          color: this.color,
+          image: ''
+        };
+        localStorage.setItem('Theme', JSON.stringify(themeData));
+        document.styleSheets[0].addRule('.T-BG', `background-color: ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-FT', `color: ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-FT-H:hover', `color: ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-BD', `border-color: ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-SD', `box-shadow: 0 0 5px 1px ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-SD-H:hover', `box-shadow: 0 0 5px 1px ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-TSD-H:hover', `text-shadow: 0 0 5px ${this.color} !important`);
+        document.styleSheets[0].addRule('.swiper-pagination-bullet-active', `border-color: ${this.color} !important`);
+      },
       changeSize(type){
         switch (type){
           case 'min':BrowserWindow.getFocusedWindow().minimize(); break;
@@ -90,6 +113,17 @@
     padding-left: 10px;
   }
   .frame-opt{
+    .colorBtn{
+      background-color: transparent !important;
+      cursor: pointer;
+    }
+    .theme{
+      position: relative;
+      left: 20px;
+      font-size: 18px;
+      cursor: pointer;
+      vertical-align: middle;
+    }
     .picker{
       display: inline-block;
       vertical-align: middle;

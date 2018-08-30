@@ -18,7 +18,7 @@
               收藏({{playlist.subscribedCount}})
           </div>
           <div v-else
-               class="subscribed"
+               class="subscribed T-FT"
                title="已收藏"
                @click="subscribe(playlist.id, 2)">
               收藏({{playlist.subscribedCount}})
@@ -29,20 +29,20 @@
         <div class="tag">标签：{{playlist.tags.map(t => { return t}).join('、')}}</div>
         <div class="explain">介绍：{{playlist.description}}</div>
       </div>
-      <div class="play-all"><span class="icon-play">&#xe624;</span>播放全部</div>
+      <div class="play-all"><span class="icon-play T-FT">&#xe624;</span>播放全部</div>
     </header>
     <ul class="recommend-songs-list">
       <li class="song-list-item"
           v-for="(item, index) in playlist.tracks"
           @click="play(index)">
-        <span class="playing"
+        <span class="playing T-FT"
               v-if="$store.state.songList.id == item.id">
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect" @click="collect(item.id)">&#xe681;</span>
+        <span class="collect T-FT-H T-TSD-H" @click="collect(item.id)">&#xe681;</span>
         <span class="name">{{item.name}}</span>
-        <span class="type">&#xe60a;</span>
+        <span class="type T-FT">&#xe60a;</span>
         <span class="album">{{item.al.name}}</span>
         <span class="artist">{{item.ar.map(art=>{return art.name}).join('、')}}</span>
       </li>

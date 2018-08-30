@@ -20,21 +20,21 @@
     </div>
     <div class="discover-menu">
       <div class="menu-item">
-        <div class="item-logo icon-FM">&#xe606;</div>
+        <div class="item-logo icon-FM T-FT T-BD">&#xe606;</div>
         <div class="item-name">私人FM</div>
       </div>
       <div class="menu-item center" @click="$router.push('/recommend/songs')">
-        <div class="item-logo">&#xe60e;</div>
+        <div class="item-logo T-FT T-BD">&#xe60e;</div>
         <div class="item-name">每日歌曲推荐</div>
       </div>
       <div class="menu-item">
-        <div class="item-logo">&#xe6c5;</div>
+        <div class="item-logo T-FT T-BD">&#xe6c5;</div>
         <div class="item-name">排行榜</div>
       </div>
     </div>
     <div class="discover-recommend">
       <header class="recommend-title">
-        <span class="icon-recommend">&#xe78c;</span>
+        <span class="icon-recommend T-FT">&#xe78c;</span>
         推荐歌单
         <span class="recommend-more">更多&#xe617;</span>
       </header>

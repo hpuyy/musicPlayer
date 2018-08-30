@@ -4,12 +4,12 @@
       <header class="play-list-type-bd">
         <div class="choosed">
           当前选择：{{name}}
-          <span class="type-btn"
+          <span class="type-btn T-FT"
                 v-if="!openChoose"
                 @click="open">
                 展开
           </span>
-          <span class="type-btn"
+          <span class="type-btn T-FT"
                 v-else
                 @click="open">
                 收起
@@ -17,8 +17,8 @@
         </div>
         <trsnsition name="height-change">
           <div class="type-content" v-show="openChoose">
-            <div class="type-name" @click="chooseType('全部')">全部</div>
-            <div class="type-name"
+            <div class="type-name T-TSD-H T-FT-H" @click="chooseType('全部')">全部</div>
+            <div class="type-name T-TSD-H T-FT-H"
                  v-for="(item, index) in catlist"
                  @click="chooseType(item.name)">
                 {{item.name}}
@@ -34,7 +34,7 @@
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
-      <div class="load-more" @click="loadMore">··········点击加载更多··········</div>
+      <div class="load-more T-TSD-H" @click="loadMore">··········点击加载更多··········</div>
     </div>
   </div>
 </template>

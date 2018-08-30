@@ -4,11 +4,11 @@
       <ul>
         <li class="nav-list-open"><div class="icon-open">&#xe667;</div></li>
         <li @click="navGuide('/search')"
-            :class="{checked: $route.fullPath == '/search'}">
+            :class="['T-BD', {checked: $route.fullPath == '/search'}]">
           <div class="icon-search">&#xe63b;</div>
           搜索
         </li>
-        <li :class="{checked: $route.fullPath.match(/^(\/discover)|(\/recommend)|(\/songList)/)}">
+        <li :class="['T-BD', {checked: $route.fullPath.match(/^(\/discover)|(\/recommend)|(\/songList)/)}]">
           <div class="icon-music">&#xe680;</div>
           发现音乐
         </li>
@@ -17,7 +17,7 @@
       </ul>
       <ul>
         <li class="nav-list-title">我的音乐</li>
-        <li :class="{checked: $route.fullPath == '/localMusic'}" @click="navGuide('/localMusic')">
+        <li :class="['T-BD', {checked: $route.fullPath == '/localMusic'}]" @click="navGuide('/localMusic')">
           <div class="icon-local">&#xe605;</div>本地音乐
         </li>
         <li><div class="icon-down">&#xe63a;</div>下载管理</li>
@@ -96,7 +96,6 @@
   height: calc(100% - 90px);
   box-sizing: border-box;
   border-right: 1px solid #eee;
-  box-shadow: 0 0 4px 1px #eee;
   float: left;
   color: #000;
   -webkit-user-select: none;
@@ -132,7 +131,7 @@
   }
   .checked{
     background-color: rgba(0, 0, 0, .12);
-    border-left: 2px solid $theme-color;
+    border-left: 3px solid $theme-color;
   }
   .nav-list-open{
     position: absolute;

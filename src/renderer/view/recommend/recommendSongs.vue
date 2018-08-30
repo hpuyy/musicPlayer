@@ -1,25 +1,25 @@
 <template>
   <div class="recommend-songs">
     <header class="recommend-songs-bg">
-      <div class="date">{{date}}</div>
+      <div class="date T-FT">{{date}}</div>
       <div class="content">
         <div class="title">每日歌曲推荐</div>
         <div class="explain">根据你的音乐口味生成，每天6:00更新</div>
       </div>
-      <div class="play-all"><span class="icon-play">&#xe624;</span>播放全部</div>
+      <div class="play-all"><span class="icon-play T-FT">&#xe624;</span>播放全部</div>
     </header>
     <ul class="recommend-songs-list">
       <li class="song-list-item"
           v-for="(item, index) in songList"
           @click="play(index)">
-        <span class="playing"
+        <span class="playing T-FT"
               v-if="$store.state.songList.id == item.id">
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect">&#xe681;</span>
+        <span class="collect T-FT-H T-TSD-H">&#xe681;</span>
         <span class="name">{{item.name}}</span>
-        <span class="type">&#xe60a;</span>
+        <span class="type T-FT">&#xe60a;</span>
         <span class="album">{{item.album.name}}</span>
         <span class="artist">{{item.artists.map(art=>{return art.name}).join('、')}}</span>
       </li>
@@ -171,6 +171,10 @@
           text-align: center;
           font-family: iconfont;
           width: 20px;
+          &:hover{
+            text-shadow: 0 0 5px $theme-color;
+            color: $theme-color;
+          }
         }
         .name{
           min-width: 180px;

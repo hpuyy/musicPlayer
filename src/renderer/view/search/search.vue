@@ -11,20 +11,20 @@
       <li class="song-list-item"
           v-for="(item, index) in result"
           @click="play(index)">
-        <span class="playing"
+        <span class="playing T-FT"
               v-if="$store.state.songList.id == item.id">
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect" @click="collect(item.id)">&#xe681;</span>
+        <span class="collect T-FT-H T-TSD-H" @click="collect(item.id)">&#xe681;</span>
         <span class="name">{{item.name}}</span>
-        <span class="type">&#xe60a;</span>
+        <span class="type T-FT">&#xe60a;</span>
         <span class="album">{{item.album.name}}</span>
         <span class="artist">{{item.artists.map(art=>{return art.name}).join('、')}}</span>
       </li>
     </ul>
-    <div class="load-more" @click="loadMore" v-if="searchTag">··········点击加载更多··········</div>
-    <div class="load-more" v-else>··········发现好音乐··········</div>
+    <div class="load-more T-TSD-H" @click="loadMore" v-if="searchTag">··········点击加载更多··········</div>
+    <div class="load-more T-TSD-H" v-else>··········发现好音乐··········</div>
   </div>
 </template>
 

@@ -13,7 +13,7 @@
           <input type="password" placeholder="请输入密码" v-model="pwd">
         </div>
         <div class="login-item">
-          <input type="button" value="登入" class="btn" @click="login">
+          <input type="button" value="登入" class="btn T-BG" @click="login">
         </div>
       </div>
       <div class="user-info">

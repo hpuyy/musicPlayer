@@ -4,8 +4,8 @@
       <img :src="pic">
     </div>
     <div class="player-control">
-      <div class="pre" @click="control('prev')">&#xe6e1;</div>
-      <div class="play-bd">
+      <div class="pre T-SD-H T-BG" @click="control('prev')">&#xe6e1;</div>
+      <div class="play-bd T-SD-H T-BG">
         <span class="play"
               v-if="!this.$store.state.songList.status"
               @click="control('play')">&#xe69d;</span>
@@ -13,7 +13,7 @@
               v-else
               @click="control('play')">&#xe647;</span>
       </div>
-      <div class="next" @click="control('next')">&#xe718;
+      <div class="next T-SD-H T-BG" @click="control('next')">&#xe718;
       </div>
     </div>
     <div class="player-process"
@@ -30,8 +30,8 @@
         </div>
       </div>
       <div class="process-track" ref="progress">
-        <div class="process-content" :style="{width: percent}">
-          <div class="process-thumb" @mousedown="speed($event, 'start')">
+        <div class="process-content T-BG" :style="{width: percent}">
+          <div class="process-thumb T-SD-H" @mousedown="speed($event, 'start')">
           </div>
         </div>
         <audio ref="music"
