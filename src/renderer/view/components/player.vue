@@ -106,7 +106,7 @@
           }
           else{
             if(data.isLocal){
-              this.$refs.music.src = data.localMusic[data.index].url;
+              this.$refs.music.src = 'http://localhost:9083' + data.localMusic[data.index].url;
               this.playInfo = data.localMusic[data.index];
               this.$refs.music.play();
               this.pic = 'static/icon.ico';

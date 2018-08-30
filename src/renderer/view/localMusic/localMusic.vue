@@ -17,7 +17,9 @@
         <span class="icon-play T-FT">&#xe624;</span>播放全部
         <span class="mul-remove" @click="remove">
           <span v-if="!del">批量移除</span>
-          <span v-else @click.stop="saveEdit">保存</span>
+          <span v-if="del" @click.stop="listEmpty">清空</span>
+          <span v-if="del" @click.stop="cancer">取消</span>
+          <span v-if="del" @click.stop="saveEdit">保存</span>
         </span>
       </div>
     </header>
@@ -33,7 +35,7 @@
         <span class="name">{{item.name}}</span>
         <span class="type del T-FT T-TSD-H"
               v-show="del"
-              @click.stop="removeLocalMusic(item.id)">&#xe602;
+              @click.stop="removeLocalMusic(index)">&#xe602;
         </span>
         <span class="type T-FT">&#xe60a;</span>
       </li>
@@ -63,17 +65,20 @@
       remove(){
         this.del = !this.del;
       },
-      removeLocalMusic(id){
-        for(let i = 0, len = this.dataList.length; i <= len; i++){
-          if(this.dataList[i].id === id){
-            this.dataList.splice(i, 1);
-            break;
-          }
-        }
+      removeLocalMusic(index){
+        this.dataList.splice(index, 1);
       },
       saveEdit(){
         this.del = !this.del;
         localStorage.setItem('localMusic', JSON.stringify(this.dataList));
+      },
+      listEmpty(){
+        this.dataList = [];
+        localStorage.removeItem('localMusic');
+      },
+      cancer(){
+        this.dataList = JSON.parse(localStorage.getItem('localMusic'));
+        this.del = !this.del;
       },
       loadFiles(){
         let url = this.$refs.files.files[0].path;
@@ -83,7 +88,7 @@
           if(res.filename.match(/(.mp3)|(.ogg)|(.wav)$/)){
             this.dataList.push({
               name: res.filename.replace('.mp3', ''),
-              url: 'http://localhost:9083/r/loadsrc?url=' + res.path,
+              url: '/r/loadsrc?url=' + res.path,
               id: Math.random()
             })
           }
@@ -169,11 +174,11 @@
           span{
             color: #000;
             font-size: 14px;
+            &:hover{
+              text-shadow: 0 0 5px #747474;
+            }
           }
           font-size: 14px;
-          &:hover{
-            text-shadow: 0 0 5px #747474;
-          }
         }
         span{
           font-family: iconfont;
