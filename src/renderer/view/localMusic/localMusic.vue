@@ -74,7 +74,6 @@
       },
       listEmpty(){
         this.dataList = [];
-        localStorage.removeItem('localMusic');
       },
       cancer(){
         this.dataList = JSON.parse(localStorage.getItem('localMusic'));
@@ -85,7 +84,7 @@
         let files = readDir(url + '\\');
         this.dataList = JSON.parse(localStorage.getItem('localMusic')) || [];
         files.map((res) => {
-          if(res.filename.match(/(.mp3)|(.ogg)|(.wav)$/)){
+          if(res.filename.match(/(.mp3)|(.ogg)|(.wav)|(.m4a)$/)){
             this.dataList.push({
               name: res.filename.replace('.mp3', ''),
               url: '/r/loadsrc?url=' + res.path,
