@@ -1,7 +1,5 @@
 const electron = require('electron');
 const fs = require("fs");
-const id3 = require("node-id3");
-
 
 function readFileList(path, filesList) {
   let files = fs.readdirSync(path);

@@ -1,5 +1,5 @@
 <template>
-  <div class="discover-page-container">
+  <div class="discover-page-container" ref="container">
     <div class="discover-recommend">
       <header class="play-list-type-bd">
         <div class="choosed">
@@ -15,22 +15,20 @@
                 收起
           </span>
         </div>
-        <trsnsition name="height-change">
-          <div class="type-content" v-show="openChoose">
-            <div class="type-name T-TSD-H T-FT-H" @click="chooseType('全部')">全部</div>
-            <div class="type-name T-TSD-H T-FT-H"
-                 v-for="(item, index) in catlist"
-                 @click="chooseType(item.name)">
-                {{item.name}}
-            </div>
+        <div class="type-content" v-show="openChoose">
+          <div class="type-name T-TSD-H T-FT-H" @click="chooseType('全部')">全部</div>
+          <div class="type-name T-TSD-H T-FT-H"
+               v-for="(item, index) in catlist"
+               @click="chooseType(item.name)">
+            {{item.name}}
           </div>
-        </trsnsition>
+        </div>
       </header>
       <ul class="recommend-bd">
         <li class="recommend-item"
             v-for="(item, index) in playlist"
             @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic" :style="{height: picWidth}" ref="itemPic"><img :src="item.coverImgUrl"></div>
+          <div class="item-pic" ref="itemPic"><img :src="item.coverImgUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -53,8 +51,7 @@
         catlist: [],
         openChoose: false,
         name: '全部',
-        offset: 0,
-        picWidth: ''
+        offset: 0
       }
     },
     created(){
@@ -66,13 +63,15 @@
       });
     },
     mounted(){
-      this.timer = this.$loading();
       window.addEventListener('resize', () => {
-        this.picWidth = this.$refs.itemPic[0].offsetWidth + 'px';
+        let el = this.$refs.container;
+        let width = el.offsetWidth;
+        el.style.fontSize = 20 * width / 375 + 'px';
       });
-
+      this.timer = this.$loading();
     },
     updated(){
+      this.resize();
       if(this.loading){
         clearTimeout(this.timer);
         this.$loading(true);
@@ -80,6 +79,11 @@
       }
     },
     methods:{
+      resize(){
+        let el = this.$refs.container;
+        let width = el.offsetWidth;
+        el.style.fontSize = 20 * width / 375 + 'px';
+      },
       open(){
         this.openChoose = !this.openChoose;
       },
@@ -102,12 +106,6 @@
 
 <style lang="scss">
   @import "@/sass/variable.scss";
-  .height-change-enter, height-change-leave-to{
-    height: 0;
-  }
-  .height-change-enter-active, .height-change-leave-active{
-    transition: all .2s;
-  }
   .load-more{
     text-align: center;
     padding: 10px 0;

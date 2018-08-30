@@ -38,11 +38,11 @@
         推荐歌单
         <span class="recommend-more">更多&#xe617;</span>
       </header>
-      <ul class="recommend-bd">
+      <ul class="recommend-bd" ref="disCon">
         <li class="recommend-item"
             v-for="(item, index) in personalized"
             @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic" ref="itemPic" :style="{height: picWidth}"><img :src="item.picUrl"></div>
+          <div class="item-pic" ref="itemPic"><img :src="item.picUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -100,8 +100,7 @@
         banner: [],
         personalized: [],
         loading: true,
-        timer: '',
-        picWidth: ''
+        timer: ''
       }
     },
     components:{
@@ -120,10 +119,13 @@
     mounted(){
       this.timer = this.$loading();
       window.addEventListener('resize', () => {
-        this.picWidth = this.$refs.itemPic[0].offsetWidth + 'px';
+        let el = this.$refs.disCon;
+        let width = el.offsetWidth;
+        el.style.fontSize = 20 * width / 375 + 'px';
       });
     },
     updated(){
+      this.resize();
       if(this.loading){
         clearTimeout(this.timer);
         this.$loading(true);
@@ -137,6 +139,11 @@
         document.cookie = '__csrf' + "=''; expires="+myDate.toGMTString();
         localStorage.removeItem('userInfo');
       },*/
+      resize(){
+        let el = this.$refs.disCon;
+        let width = el.offsetWidth;
+        el.style.fontSize = 20 * width / 375 + 'px';
+      },
       swiper(type){
         if(type === 'in'){
           this.swiperNav = true;

@@ -1,5 +1,5 @@
 <template>
-  <div class="discover-page-bd" id="discover-page-bd">
+  <div class="discover-page-bd">
     <div class="discover-page-title">发现音乐</div>
     <ul class="discover-page-tag">
       <li :class="['tag-name',{'checked T-FT T-BD' : $route.fullPath == '/discover'}]"
@@ -249,8 +249,11 @@
       }
       @media screen and (max-width: 870px){
         .recommend-item{
-          width: 30% ;
-          margin-right: 5%;
+          width: 5.75em;
+          .item-pic{
+            height: 5.75em;
+          }
+          margin-right: .722em;
           &:nth-of-type(3n){
             margin-right: 0;
           }
@@ -258,8 +261,11 @@
       }
       @media screen and (min-width: 870px) and (max-width: 1100px){
         .recommend-item{
-          width: 22% ;
-          margin-right: 4%;
+          width: 4.12em;
+          margin-right: .749em;
+          .item-pic{
+            height: 4.12315em;
+          }
           &:nth-of-type(4n){
             margin-right: 0;
           }
@@ -267,8 +273,8 @@
       }
       @media screen and (min-width: 1100px){
         .recommend-item{
-          width: 18% ;
-          margin-right: 2.5%;
+          width: 3.372em;
+          margin-right: .468em;
           &:nth-of-type(5n){
             margin-right: 0;
           }
