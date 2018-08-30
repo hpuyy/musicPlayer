@@ -8,7 +8,8 @@
           <div class="icon-search">&#xe63b;</div>
           搜索
         </li>
-        <li :class="['T-BD', {checked: $route.fullPath.match(/^(\/discover)|(\/recommend)|(\/songList)/)}]">
+        <li :class="['T-BD', {checked: $route.fullPath.match(/^(\/discover)|(\/recommend)|(\/songList)/)}]"
+            @click="navGuide('/discover')">
           <div class="icon-music">&#xe680;</div>
           发现音乐
         </li>
@@ -17,7 +18,8 @@
       </ul>
       <ul>
         <li class="nav-list-title">我的音乐</li>
-        <li :class="['T-BD', {checked: $route.fullPath == '/localMusic'}]" @click="navGuide('/localMusic')">
+        <li :class="['T-BD', {checked: $route.fullPath == '/localMusic'}]"
+            @click="navGuide('/localMusic')">
           <div class="icon-local">&#xe605;</div>本地音乐
         </li>
         <li><div class="icon-down">&#xe63a;</div>下载管理</li>
