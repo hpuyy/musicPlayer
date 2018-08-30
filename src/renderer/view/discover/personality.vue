@@ -42,7 +42,7 @@
         <li class="recommend-item"
             v-for="(item, index) in personalized"
             @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic"><img :src="item.picUrl"></div>
+          <div class="item-pic" ref="itemPic" :style="{height: picWidth}"><img :src="item.picUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -100,7 +100,8 @@
         banner: [],
         personalized: [],
         loading: true,
-        timer: ''
+        timer: '',
+        picWidth: ''
       }
     },
     components:{
@@ -113,11 +114,14 @@
       });
 
       Personalized().then((res)=>{
-        this.personalized = res.result.slice(0,9);
+        this.personalized = res.result.slice(0,15);
       });
     },
     mounted(){
       this.timer = this.$loading();
+      window.addEventListener('resize', () => {
+        this.picWidth = this.$refs.itemPic[0].offsetWidth + 'px';
+      });
     },
     updated(){
       if(this.loading){

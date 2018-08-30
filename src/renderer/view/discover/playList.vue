@@ -30,7 +30,7 @@
         <li class="recommend-item"
             v-for="(item, index) in playlist"
             @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic"><img :src="item.coverImgUrl"></div>
+          <div class="item-pic" :style="{height: picWidth}" ref="itemPic"><img :src="item.coverImgUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -53,7 +53,8 @@
         catlist: [],
         openChoose: false,
         name: '全部',
-        offset: 0
+        offset: 0,
+        picWidth: ''
       }
     },
     created(){
@@ -66,6 +67,10 @@
     },
     mounted(){
       this.timer = this.$loading();
+      window.addEventListener('resize', () => {
+        this.picWidth = this.$refs.itemPic[0].offsetWidth + 'px';
+      });
+
     },
     updated(){
       if(this.loading){
@@ -89,7 +94,6 @@
       loadMore(){
         PlayList(this.name, this.offset += 20).then((res)=>{
           this.playlist = this.playlist.concat(res.playlists);
-          console.log(this.playlist);
         });
       }
     }
