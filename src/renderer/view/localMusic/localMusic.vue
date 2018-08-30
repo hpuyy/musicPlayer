@@ -83,7 +83,7 @@
           if(res.filename.match(/(.mp3)|(.ogg)|(.wav)$/)){
             this.dataList.push({
               name: res.filename.replace('.mp3', ''),
-              url: 'http://localhost:9082/r/loadsrc?url=' + res.path,
+              url: 'http://localhost:9083/r/loadsrc?url=' + res.path,
               id: Math.random()
             })
           }
