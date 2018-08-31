@@ -31,7 +31,7 @@
       <ul>
         <li class="nav-list-title">我的歌单</li>
         <li v-for="(item, i) in playList"
-            @click="gotoList(item.id)">
+            @click="gotoList(item.id, i)">
           <div class="icon-song-list" v-if="i === 0">&#xe681;</div>
           <div class="icon-song-list" v-else>&#xe760;</div>
           {{item.name}}
@@ -80,8 +80,8 @@
           this.$store.dispatch('userCenter/Show');
         }
       },
-      gotoList(id){
-        this.$router.push(`/songList?id=${id}`);
+      gotoList(id, index){
+        this.$router.push(`/songList?id=${id}&index=${index}`);
       },
       navGuide(url){
         this.$router.push(url);

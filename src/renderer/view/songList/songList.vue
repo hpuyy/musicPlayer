@@ -40,7 +40,14 @@
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect T-FT-H T-TSD-H" @click="collect(item.id)">&#xe681;</span>
+        <span class="collect T-FT-H T-TSD-H"
+              @click.stop="collect(item.id)"
+              v-if="songIndex == 1">&#xe681;
+        </span>
+        <span class="collected T-FT T-TSD-H"
+              @click.stop="collect(item.id, false)"
+              v-if="songIndex == 0">&#xe69e;
+        </span>
         <span class="name">{{item.name}}</span>
         <span class="type T-FT">&#xe60a;</span>
         <span class="album">{{item.al.name}}</span>
@@ -62,7 +69,8 @@
         playlist:{},
         saveData: false,
         timer: '',
-        loading: true
+        loading: true,
+        songIndex: this.$route.query.index
       }
     },
     created(){
@@ -83,6 +91,7 @@
       '$route.query.id': function (val) {
         playList(val).then(res => {
           this.playlist = res.playlist;
+          this.songIndex = this.$route.query.index;
         });
       }
     },
@@ -94,7 +103,13 @@
       },
       collect(id, like = true){
         Like(id, like).then(() => {
-          this.$alert('收藏成功(注:当前系统无法显示收藏状态)', '温馨提示');
+          if(like){
+            this.$alert('收藏成功(注:当前系统无法显示收藏状态)', '温馨提示');
+          }
+          else{
+            this.$alert('取消成功(注:当前系统无法显示收藏状态)', '温馨提示');
+          }
+          this.init();
         })
       },
       subscribe(id, t = 1){
@@ -272,6 +287,15 @@
           text-align: center;
           font-weight: bolder;
           width: 20px;
+        }
+        .collected{
+          font-family: iconfont;
+          width: 20px;cursor: pointer;
+          text-align: center;
+          color: $theme-color;
+          &:hover{
+            text-shadow: 0 0 5px $theme-color;
+          }
         }
         .collect{
           text-align: center;

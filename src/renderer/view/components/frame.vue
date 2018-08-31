@@ -93,6 +93,7 @@
   color: #fff;
   font-size: 12px;
   .frame-head-back{
+    cursor: pointer;
     font-family: iconfont;
     color: #fff;
     font-size: 18px;

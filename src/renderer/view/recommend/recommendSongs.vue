@@ -17,7 +17,7 @@
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect T-FT-H T-TSD-H">&#xe681;</span>
+        <span class="collect T-FT-H T-TSD-H" @click.stop="collect(item.id)">&#xe681;</span>
         <span class="name">{{item.name}}</span>
         <span class="type T-FT">&#xe60a;</span>
         <span class="album">{{item.album.name}}</span>
@@ -29,6 +29,7 @@
 
 <script>
   import Daily from '@/api/music/recommend_songs';
+  import Like from '@/api/music/like';
 
   export default {
     name: "recommendSongs",
@@ -58,6 +59,19 @@
       }
     },
     methods:{
+      collect(id, like = true){
+        Like(id, like).then(() => {
+          if(like){
+            this.$alert('收藏成功(注:当前系统无法显示收藏状态)', '温馨提示');
+          }
+          else{
+            this.$alert('取消成功(注:当前系统无法显示收藏状态)', '温馨提示');
+          }
+          Daily().then((res)=>{
+            this.songList = res.recommend;
+          });
+        })
+      },
       play(index){
         if(!this.saveData){
           this.$store.dispatch('songList/setSongList', this.songList);
