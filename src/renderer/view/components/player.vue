@@ -43,7 +43,7 @@
     <div class="player-type">
       <div class="collected" v-if="collected == true">&#xe69e;</div>
       <div class="un-collect" v-else>&#xe681;</div>
-      <div class="sto" v-if="type == 'sto'" @click="change" >&#xe603;</div>
+      <div class="sto" v-if="type == 'sto'">&#xe603;</div>
       <div class="solo" v-if="type == 'solo'">&#xe636;</div>
       <div class="loop" v-if="type == 'loop'">&#xe69c;</div>
     </div>

@@ -125,12 +125,12 @@
       });
     },
     updated(){
-      this.resize();
       if(this.loading){
         clearTimeout(this.timer);
         this.$loading(true);
         this.loading = false;
       }
+      this.resize();
     },
     methods:{
       /*clearCookie(){
