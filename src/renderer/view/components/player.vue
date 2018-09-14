@@ -262,6 +262,7 @@
   box-shadow: 0 -2px 5px 1px #f2f2f2;
   position: fixed;
   bottom: 0;
+  z-index: 100;
   .player-list-bd{
     position: fixed;
     width: 100%;
