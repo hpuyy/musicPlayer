@@ -41,12 +41,26 @@
       </div>
     </div>
     <div class="player-type">
-      <div class="collected" v-if="collected == true">&#xe69e;</div>
-      <div class="un-collect" v-else>&#xe681;</div>
-      <div class="sto" v-if="type == 'sto'">&#xe603;</div>
-      <div class="solo" v-if="type == 'solo'">&#xe636;</div>
-      <div class="loop" v-if="type == 'loop'">&#xe69c;</div>
+      <div class="type-item collected" v-if="collected == true">&#xe69e;</div>
+      <div class="type-item un-collect" v-else>&#xe681;</div>
+      <div class="type-item sto" v-if="type == 'sto'">&#xe603;</div>
+      <div class="type-item solo" v-if="type == 'solo'">&#xe636;</div>
+      <div class="type-item loop" v-if="type == 'loop'">&#xe69c;</div>
+      <div class="type-item list" @click="listCon = !listCon">&#xe6be;</div>
     </div>
+    <div class="player-list-bd" v-show="listCon" @click="listCon = false"></div>
+    <transition name="scale">
+      <div class="player-list" v-show="listCon">
+        <div class="list-item" v-for="(item, index) in playList" @click="listPlay(index)">
+          <div class="grid playing T-FT"
+               v-if="$store.state.songList.id == item.id">
+            &#xe651;
+          </div>
+          <div class="grid" v-else>{{index + 1}}</div>
+          <div class="">{{item.name}}</div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -72,7 +86,8 @@
         music: [],
         musicUrl: [],
         playInfo: {},
-        playerControl: false
+        playerControl: false,
+        listCon: false
       }
     },
     created(){
@@ -133,6 +148,19 @@
         }
       }
     },
+    computed: {
+      playList: function () {
+        let list;
+        let data = this.$store.state.songList;
+        if(!data.isLocal){
+          list = data.songList;
+        }
+        else{
+          list = data.localMusic;
+        }
+        return list
+      }
+    },
     methods:{
       control(type){
         switch(type){
@@ -175,6 +203,12 @@
         }
         this.$store.dispatch('songList/stop');
         setTimeout(()=>{this.$store.dispatch('songList/play', index)}, 10);
+      },
+      listPlay(index) {
+        this.$store.dispatch('songList/stop');
+        setTimeout(() => {
+          this.$store.dispatch('songList/play', index);
+        },10);
       },
       speed(e, action){
         if(action === 'start'){
@@ -228,7 +262,57 @@
   box-shadow: 0 -2px 5px 1px #f2f2f2;
   position: fixed;
   bottom: 0;
-  overflow: hidden;
+  .player-list-bd{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .player-list{
+    position: absolute;
+    width: 260px;
+    height: 350px;
+    top: -370px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: -2px 0 6px 1px #d9d9d9;
+    padding: 0 10px 20px;
+    overflow-y: scroll;
+    transform-origin: bottom right;
+    .list-item{
+      display: grid;
+      cursor: pointer;
+      grid-template-columns: 1fr 8fr;
+      height: 40px;
+      width: 100%;
+      font-size: 12px;
+      line-height: 40px;
+      border-bottom: 1px solid #eee;
+      .grid{
+        text-indent: 5px;
+      }
+      .playing{
+        font-family: iconfont;
+        font-size: 16px;
+        font-weight: bolder;
+      }
+    }
+    &::-webkit-scrollbar{
+      width: 6px;
+    }
+    &::-webkit-scrollbar-button{
+      display: none;
+    }
+    &::-webkit-scrollbar-track{
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb{
+      background-color: #d1d1d1;
+      border-radius: 3px;
+      width: 6px;
+    }
+  }
   &>div{
     float: left;
   }
@@ -245,7 +329,7 @@
     color: #fff;
     height: 60px;
     line-height: 60px;
-    padding: 0 30px;
+    padding: 0 20px 0 10px;
     .pre, .play-bd, .next{
       &:hover{
         box-shadow: 0 0 5px 1px $theme-color;
@@ -341,14 +425,21 @@
     height: 60px;
     line-height: 60px;
     font-family: iconfont;
-    padding-left: 15px;
-    &>div{
+    padding-left: 20px;
+    &>.type-item{
       cursor: pointer;
       display: inline-block;
-      width: 40px;
+      width: 35px;
       text-align: center;
       font-size: 16px;
     }
+  }
+  .scale-enter-active, .scale-leave-active{
+    transition: all .3s;
+  }
+  .scale-enter, .scale-leave-active{
+    transform: scale3d(.5, .5, 1);
+    opacity: 0;
   }
 }
 </style>

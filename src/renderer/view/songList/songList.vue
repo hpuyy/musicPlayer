@@ -270,6 +270,7 @@
         height: 50px;
         line-height: 50px;
         border-bottom: 1px solid #eee;
+        cursor: pointer;
         &>span{
           display: inline-block;
           white-space: nowrap;
