@@ -229,11 +229,13 @@
       margin-bottom: 0;
       width: 100%;
       overflow: hidden;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
       .recommend-item{
         cursor: pointer;
         margin-bottom: 20px;
         list-style: none;
-        float: left;
         .item-pic img{
           width: 100%;
           height: 100%;
@@ -249,11 +251,8 @@
       }
       @media screen and (max-width: 870px){
         .recommend-item{
-          width: 5.75em;
-          .item-pic{
-            height: 5.75em;
-          }
-          margin-right: .722em;
+          width: 32%;
+          margin-right: 2%;
           &:nth-of-type(3n){
             margin-right: 0;
           }
@@ -261,11 +260,8 @@
       }
       @media screen and (min-width: 870px) and (max-width: 1100px){
         .recommend-item{
-          width: 4.12em;
-          margin-right: .749em;
-          .item-pic{
-            height: 4.12315em;
-          }
+          width: 24%;
+          margin-right: 1.33%;
           &:nth-of-type(4n){
             margin-right: 0;
           }
@@ -273,8 +269,8 @@
       }
       @media screen and (min-width: 1100px){
         .recommend-item{
-          width: 3.372em;
-          margin-right: .468em;
+          width: 19%;
+          margin-right: 1.25%;
           &:nth-of-type(5n){
             margin-right: 0;
           }

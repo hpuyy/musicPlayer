@@ -118,11 +118,6 @@
     },
     mounted(){
       this.timer = this.$loading();
-      window.addEventListener('resize', () => {
-        let el = this.$refs.disCon;
-        let width = el.offsetWidth;
-        el.style.fontSize = 20 * width / 375 + 'px';
-      });
     },
     updated(){
       if(this.loading){

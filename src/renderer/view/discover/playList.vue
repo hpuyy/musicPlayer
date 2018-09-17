@@ -63,11 +63,6 @@
       });
     },
     mounted(){
-      window.addEventListener('resize', () => {
-        let el = this.$refs.container;
-        let width = el.offsetWidth;
-        el.style.fontSize = 20 * width / 375 + 'px';
-      });
       this.timer = this.$loading();
     },
     updated(){
