@@ -67,6 +67,7 @@
 <script>
   import MusicUrl from '@/api/music/music_url';
   const globalShortcut = require('electron').remote.globalShortcut;
+  const BrowserWindow = require('electron').remote.BrowserWindow;
 
   export default {
     name: "player",

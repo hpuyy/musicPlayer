@@ -1,26 +1,15 @@
-/* 项目中使用 axios 一直无法解决跨域接受Cookie的问题，这里使用jq*/
-import $ from 'jquery';
+import axios from '../axios'
 
 export default function (phone, pwd) {
   const require = new Promise((resolve, reject) => {
-    $.ajax({
-      url: 'http://localhost:9083/login/cellphone',
-      method: 'get',
-      data:{
+    axios.get('/login/cellphone', {
+      params:{
         phone: phone,
         password: pwd
-      },
-      xhrFields: {
-        withCredentials: true
-      },
-      timeout: 4000,
-      success: function (data) {
-        if(data.code === 200) resolve(data);
-        else reject();
-      },
-      error: function () {
-        reject();
       }
+    }).then((data)=> {
+      if(data.data.code === 200) resolve(data.data);
+      else reject();
     });
   });
   return require;

@@ -98,7 +98,6 @@
     },
     methods:{
       test(){
-        QQ()
       },
       login(){
         LoginCellphone(this.phone, this.pwd).then((res)=>{

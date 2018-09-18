@@ -71,7 +71,6 @@
             break;
           case 'close': BrowserWindow.getFocusedWindow().hide(); break;
         }
-
       },
       back(){
         this.$router.push(this.$store.state.back.fullPath[1] || '/');
