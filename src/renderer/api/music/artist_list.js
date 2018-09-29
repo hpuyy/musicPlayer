@@ -1,12 +1,13 @@
 import axios from '../axios'
 
-export default function (id, like = true) {
+export default function (cat, initial, offset = 0, limit = 20) {
   let require = new Promise((resolve, reject) => {
-    axios.get('/like',{
+    axios.get('/artist/list',{
       params:{
-        id: id,
-        like: like,
-        timestamp: new Date().getTime()
+        cat: cat,
+        initial: initial,
+        offset: offset,
+        limit: limit
       }
     }).then((data)=> {
       resolve(data.data);

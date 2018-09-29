@@ -9,7 +9,7 @@
           搜索
         </li>
         <li :class="['T-BD', {checked: $route.fullPath.match(/^(\/discover)|(\/recommend)|(\/songList)/)}]"
-            @click="navGuide('/discover')">
+            @click="navGuide('/')">
           <div class="icon-music">&#xe680;</div>
           发现音乐
         </li>

@@ -56,6 +56,7 @@
         document.styleSheets[0].addRule('.T-SD', `box-shadow: 0 0 5px 1px ${this.color} !important`);
         document.styleSheets[0].addRule('.T-SD-H:hover', `box-shadow: 0 0 5px 1px ${this.color} !important`);
         document.styleSheets[0].addRule('.T-TSD-H:hover', `text-shadow: 0 0 5px ${this.color} !important`);
+        document.styleSheets[0].addRule('.T-TSD', `text-shadow: 0 0 5px ${this.color} !important`);
         document.styleSheets[0].addRule('.swiper-pagination-bullet-active', `border-color: ${this.color} !important`);
       },
       changeSize(type){

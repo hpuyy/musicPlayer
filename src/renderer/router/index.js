@@ -7,6 +7,7 @@ import discover_r from './discover/discover';
 
 const recommendSongs = resolve => require(['@/view/recommend/recommendSongs'], resolve);
 const songList = resolve => require(['@/view/songList/songList'], resolve);
+const artistSongList = resolve => require(['@/view/songList/artistSongList'], resolve);
 const search = resolve => require(['@/view/search/search'], resolve);
 const localMusic = resolve => require(['@/view/localMusic/localMusic'], resolve);
 
@@ -35,6 +36,10 @@ export default new Router({
       path: '/songList',
       name: 'songList',
       component: songList
+    },,{
+      path: '/artist/songList',
+      name: 'artistSongList',
+      component: artistSongList
     },{
       path: '/search',
       name: 'search',

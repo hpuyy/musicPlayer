@@ -12,7 +12,9 @@
       </li>
       <li class="tag-name">主播电台</li>
       <li class="tag-name">最新音乐</li>
-      <li class="tag-name" @click="">歌手</li>
+      <li class="tag-name"
+          :class="['tag-name',{'checked T-FT T-BD' : $route.fullPath == '/discover/artistList'}]"
+          @click="$router.push('/discover/artistList')">歌手</li>
     </ul>
     <transition name="slide">
       <keep-alive>

@@ -120,6 +120,7 @@
       position: absolute;
       right: calc(5% + 12px);
       top: 24px;
+      cursor: pointer;
     }
     .search-sys-input{
       border: 0;

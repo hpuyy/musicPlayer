@@ -1,53 +1,32 @@
 <template>
   <div class="song-list-module">
     <header class="recommend-songs-bg">
-      <div class="label">歌单</div>
+      <div class="label">歌手</div>
       <div class="date">
-        <img :src="playlist.coverImgUrl">
+        <img :src="playlist.artist.img1v1Url">
       </div>
       <div class="content">
-        <div class="title">{{playlist.name}}</div>
-        <div class="creator">
-          <img :src="playlist.creator.avatarUrl" class="avator">
-          <span>{{playlist.creator.nickname}}</span>
-          <span>{{new Date(playlist.createTime).toLocaleDateString()}} 创建</span>
-        </div>
+        <div class="title">{{playlist.artist.name}}</div>
         <div class="operate">
-          <div @click="subscribe(playlist.id)"
-               v-if="!playlist.subscribed">
-              收藏({{playlist.subscribedCount}})
+          <div>
+            单曲数({{playlist.artist.musicSize}})
           </div>
-          <div v-else
-               class="subscribed T-FT"
-               title="已收藏"
-               @click="subscribe(playlist.id, 2)">
-              收藏({{playlist.subscribedCount}})
-          </div>
-          <div>评论({{playlist.commentCount}})</div>
-          <div>分享({{playlist.shareCount}})</div>
+          <div>专辑({{playlist.artist.albumSize}})</div>
+          <div>MV({{playlist.artist.mvSize}})</div>
         </div>
-        <div class="tag">标签：{{playlist.tags.map(t => { return t}).join('、')}}</div>
-        <div class="explain">介绍：{{playlist.description}}</div>
+        <div class="explain">介绍：{{playlist.artist.briefDesc}}</div>
       </div>
       <div class="play-all"><span class="icon-play T-FT">&#xe624;</span>播放全部</div>
     </header>
     <ul class="recommend-songs-list">
       <li class="song-list-item"
-          v-for="(item, index) in playlist.tracks"
+          v-for="(item, index) in playlist.hotSongs"
           @click="play(index)">
         <span class="playing T-FT"
               v-if="$store.state.songList.id == item.id">
           &#xe651;
         </span>
         <span class="index" v-else>{{index + 1}}</span>
-        <span class="collect T-FT-H T-TSD-H"
-              @click.stop="collect(item.id)"
-              v-if="songIndex == 1">&#xe681;
-        </span>
-        <span class="collected T-FT T-TSD-H"
-              @click.stop="collect(item.id, false)"
-              v-if="songIndex == 0">&#xe69e;
-        </span>
         <span class="name">{{item.name}}</span>
         <span class="type T-FT">&#xe60a;</span>
         <span class="album">{{item.al.name}}</span>
@@ -58,26 +37,21 @@
 </template>
 
 <script>
-  import playList from '@/api/music/playlist_detail';
-  import Subscribe from '@/api/music/playlist_subscribe';
-  import Like from '@/api/music/like';
   import Artists from '@/api/music/artists';
 
   export default {
-    name: "songList",
+    name: "artistSongList",
     data(){
       return{
         playlist:{},
         saveData: false,
         timer: '',
-        loading: true,
-        songIndex: this.$route.query.index,
-        type: this.$route.query.type
+        loading: true
       }
     },
     created(){
       this.$store.dispatch('back/setFullPath', this.$route.fullPath);
-      this.init();
+      this.init(this.$route.query.id);
     },
     mounted(){
       this.timer = this.$loading();
@@ -89,41 +63,15 @@
         this.loading = false;
       }
     },
-    watch:{
-      '$route.query.id': function (val) {
-        playList(val).then(res => {
-          this.playlist = res.playlist;
-          this.songIndex = this.$route.query.index;
-        });
-      }
-    },
     methods:{
-      init(){
-        playList(this.$route.query.id).then(res => {
-          this.playlist = res.playlist;
+      init(id){
+        Artists(id).then(res => {
+          this.playlist = res;
         });
-      },
-      collect(id, like = true){
-        Like(id, like).then(() => {
-          if(like){
-            this.$alert('收藏成功(注:当前系统无法显示收藏状态)', '温馨提示');
-          }
-          else{
-            this.$alert('取消成功(注:当前系统无法显示收藏状态)', '温馨提示');
-          }
-          this.init();
-        })
-      },
-      subscribe(id, t = 1){
-        Subscribe(t, id).then((res) => {
-          if(t === 1) this.$alert('收藏成功！').exec.then(() => { this.init() });
-          else this.$alert('已取消收藏！').exec.then(() => { this.init() });
-          this.$store.dispatch('playlistRe/reload');
-        })
       },
       play(index){
         if(!this.saveData){
-          let songList = this.playlist.tracks.map((data, index) => {
+          let songList = this.playlist.hotSongs.map((data, index) => {
             return Object.assign({}, {artists: data.ar}, data)
           });
 
@@ -187,9 +135,9 @@
       }
       .content{
         display: inline-block;
-        height: 90px;
         vertical-align: top;
         box-sizing: border-box;
+        width: 65%;
         .title{
           font-size: 20px;
           color: #000;
@@ -235,14 +183,34 @@
           line-height: 30px;
         }
         .explain{
+          margin-top: 10px;
+          box-sizing: border-box;
           font-size: 12px;
-          height: 16px;
+          height: 65px;
+          width: 100%;
           line-height: 16px;
-          max-width: 340px;
-          width: 70%;
-          white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          overflow-y: scroll;
+          cursor: default;
+          &::-webkit-scrollbar{
+            width: 8px;
+            cursor: pointer;
+          }
+          &::-webkit-scrollbar-button{
+            display: none;
+          }
+          &::-webkit-scrollbar-track{
+            width: 8px;
+            cursor: pointer;
+          }
+          &::-webkit-scrollbar-thumb{
+            background-color: #d1d1d1;
+            border-radius: 10px;
+            width: 8px;
+            height: 10px;
+            cursor: pointer;
+          }
         }
       }
       .play-all{

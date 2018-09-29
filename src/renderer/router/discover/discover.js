@@ -1,5 +1,6 @@
 import personality from '@/view/discover/personality';
 const playList = resolve => require(['@/view/discover/playList'], resolve);
+const artistList = resolve => require(['@/view/discover/artistList'], resolve);
 
 let router = [
   {
@@ -17,6 +18,14 @@ let router = [
       keepAlive: true
     },
     component: playList
+  },
+  {
+    path: '/discover/artistList',
+    name: 'artistList',
+    meta: {
+      keepAlive: true
+    },
+    component: artistList
   }
 ];
 

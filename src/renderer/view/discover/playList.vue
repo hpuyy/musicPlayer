@@ -66,7 +66,6 @@
       this.timer = this.$loading();
     },
     updated(){
-      this.resize();
       if(this.loading){
         clearTimeout(this.timer);
         this.$loading(true);
@@ -74,11 +73,6 @@
       }
     },
     methods:{
-      resize(){
-        let el = this.$refs.container;
-        let width = el.offsetWidth;
-        el.style.fontSize = 20 * width / 375 + 'px';
-      },
       open(){
         this.openChoose = !this.openChoose;
       },

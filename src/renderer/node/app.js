@@ -5,13 +5,6 @@ const fs = require("fs");
 const app1 = express();
 let cache = apicache.middleware;
 
-/*app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  next();
-});*/
-
 // 跨域设置
 app1.all("*", function(req, res, next) {
   if (req.path !== "/") {
@@ -51,29 +44,6 @@ const UnusualRouteFileMap = {
 const { createWebAPIRequest, request } = require("./util/util");
 const Wrap = fn => (req, res) => fn(req, res, createWebAPIRequest, request);
 
-// 同步读取 router 目录中的js文件, 根据命名规则, 自动注册路由
-/*fs.readdirSync("./router/").reverse().forEach(file => {
-  if (/\.js$/i.test(file) === false) {
-    return;
-  }
-
-  let route;
-
-  if (typeof UnusualRouteFileMap[file] !== "undefined") {
-    route = UnusualRouteFileMap[file];
-  } else {
-    route =
-      "/" +
-      file
-        .replace(/\.js$/i, "")
-        .replace(/_/g, "/")
-        .replace(/[A-Z]/g, a => {
-          return "/" + a.toLowerCase();
-        });
-  }
-
-  app.use(route, Wrap(require("./router/" + file)));
-});*/
 
 /*******************************************************************/
 app1.use('/r', require('./readAudio/index'));
@@ -95,6 +65,8 @@ app1.use('/playlist/catlist', Wrap(require("./router/playlist_catlist")));
 app1.use('/playlist/subscribe', Wrap(require("./router/playlist_subscribe")));
 app1.use('/like', Wrap(require("./router/like")));
 app1.use('/search', Wrap(require("./router/search")));
+app1.use('/artist/list', Wrap(require("./router/artist_list")));
+app1.use('/artists', Wrap(require("./router/artists")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));
