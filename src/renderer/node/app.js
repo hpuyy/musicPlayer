@@ -18,6 +18,13 @@ app1.all("*", function(req, res, next) {
   next();
 });
 
+fs.mkdir('C:\\Program Files\\cloud-music',function(error){
+  if(error) return false;
+});
+fs.mkdir('C:\\Program Files\\cloud-music\\cache',function(error){
+  if(error) return false;
+});
+
 const onlyStatus200 = (req, res) => res.statusCode === 200;
 
 const cacheSuccesses = cache('2 minutes', onlyStatus200);
@@ -47,6 +54,7 @@ const Wrap = fn => (req, res) => fn(req, res, createWebAPIRequest, request);
 
 /*******************************************************************/
 app1.use('/r', require('./readAudio/index'));
+app1.use('/res', require('./getRes/index'));
 
 app1.use('/personalized/newsong', Wrap(require("./router/personalized_newsong")));
 app1.use('/music/url', Wrap(require("./router/musicUrl")));
@@ -75,5 +83,5 @@ app1.use('/artists', Wrap(require("./router/artists")));
 /*******************************************************************/
 
 app1.listen(9083, () => {
-  console.log(`server running @ http://localhost:9082`);
+  console.log(`server running @ http://localhost:9083`);
 });

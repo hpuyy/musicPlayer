@@ -3,7 +3,7 @@
     <header class="recommend-songs-bg">
       <div class="label">歌手</div>
       <div class="date">
-        <img :src="playlist.artist.img1v1Url">
+        <img :src="baseUrl + playlist.artist.img1v1Url">
       </div>
       <div class="content">
         <div class="title">{{playlist.artist.name}}</div>
@@ -46,7 +46,8 @@
         playlist:{},
         saveData: false,
         timer: '',
-        loading: true
+        loading: true,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

@@ -13,7 +13,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
 Vue.prototype.$alert = alert;
 Vue.prototype.$loading = loading;
-/* eslint-disable no-new */
+
 new Vue({
   components: { App },
   router,

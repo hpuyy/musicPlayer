@@ -35,14 +35,6 @@
 </script>
 
 <style>
-/*  @font-face {
-    font-family: 'iconfont';  !* project id 597493 *!
-    src: url('//at.alicdn.com/t/font_597493_lxtqalp95h.eot');
-    src: url('//at.alicdn.com/t/font_597493_lxtqalp95h.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_597493_lxtqalp95h.woff') format('woff'),
-    url('//at.alicdn.com/t/font_597493_lxtqalp95h.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_597493_lxtqalp95h.svg#iconfont') format('svg');
-  }*/
   @font-face {
     font-family: 'iconfont';
     src: url('./font/iconfont.eot');

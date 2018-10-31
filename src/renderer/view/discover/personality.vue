@@ -1,17 +1,17 @@
 <template>
   <div class="discover-page-container">
     <div class="carousel"
-         @mouseover="swiper('in')"
-         @mouseout="swiper('out')">
+         @mouseover="swipers('in')"
+         @mouseout="swipers('out')">
       <swiper :options="swiperOption">
-        <swiper-slide><img :src="banner[0].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[1].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[2].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[3].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[4].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[5].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[6].picUrl"></swiper-slide>
-        <swiper-slide><img :src="banner[7].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[0].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[1].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[2].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[3].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[4].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[5].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[6].picUrl"></swiper-slide>
+        <swiper-slide><img :src="baseUrl + banner[7].picUrl"></swiper-slide>
       </swiper>
       <!--以下看需要添加-->
       <div class="swiper-button-next" v-show="swiperNav"></div>
@@ -42,7 +42,7 @@
         <li class="recommend-item"
             v-for="(item, index) in personalized"
             @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic" ref="itemPic"><img :src="item.picUrl"></div>
+          <div class="item-pic" ref="itemPic"><img :src="baseUrl + item.picUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -100,7 +100,8 @@
         banner: [],
         personalized: [],
         loading: true,
-        timer: ''
+        timer: '',
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     components:{
@@ -108,24 +109,19 @@
       swiperSlide: swiperSlide
     },
     created(){
+      this.timer = this.$loading();
       Banner().then((res)=>{
+        if(this.loading){
+          clearTimeout(this.timer);
+          this.$loading(true);
+          this.loading = false;
+        }
         this.banner = res.banners
       });
 
       Personalized().then((res)=>{
         this.personalized = res.result.slice(0,15);
       });
-    },
-    mounted(){
-      this.timer = this.$loading();
-    },
-    updated(){
-      if(this.loading){
-        clearTimeout(this.timer);
-        this.$loading(true);
-        this.loading = false;
-      }
-      this.resize();
     },
     methods:{
       /*clearCookie(){
@@ -134,12 +130,7 @@
         document.cookie = '__csrf' + "=''; expires="+myDate.toGMTString();
         localStorage.removeItem('userInfo');
       },*/
-      resize(){
-        let el = this.$refs.disCon;
-        let width = el.offsetWidth;
-        el.style.fontSize = 20 * width / 375 + 'px';
-      },
-      swiper(type){
+      swipers(type){
         if(type === 'in'){
           this.swiperNav = true;
         }

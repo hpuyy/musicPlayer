@@ -3,12 +3,12 @@
     <header class="recommend-songs-bg">
       <div class="label">歌单</div>
       <div class="date">
-        <img :src="playlist.coverImgUrl">
+        <img :src="baseUrl + playlist.coverImgUrl">
       </div>
       <div class="content">
         <div class="title">{{playlist.name}}</div>
         <div class="creator">
-          <img :src="playlist.creator.avatarUrl" class="avator">
+          <img :src="baseUrl + playlist.creator.avatarUrl" class="avator">
           <span>{{playlist.creator.nickname}}</span>
           <span>{{new Date(playlist.createTime).toLocaleDateString()}} 创建</span>
         </div>
@@ -72,7 +72,8 @@
         timer: '',
         loading: true,
         songIndex: this.$route.query.index,
-        type: this.$route.query.type
+        type: this.$route.query.type,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

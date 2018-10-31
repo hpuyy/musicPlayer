@@ -18,7 +18,7 @@
       </div>
       <div class="user-info">
         <div class="user-info-item">
-          <div class="avator"><img :src="$store.state.userCenter.userInfo.avatarUrl"></div>
+          <div class="avator"><img :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"></div>
           <div class="nickname">{{$store.state.userCenter.userInfo.nickname}}</div>
           <div class="reg"><span>&#xe6cb;</span>签到</div>
         </div>
@@ -77,7 +77,8 @@
         phone:'',
         pwd: '',
         detail: {},
-        level: 0
+        level: 0,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

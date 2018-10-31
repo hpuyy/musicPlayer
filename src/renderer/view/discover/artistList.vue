@@ -48,7 +48,7 @@
         <li class="recommend-item"
             v-for="(item, index) in playerlist"
             @click="$router.push(`/artist/songList?id=${item.id}&type=artist`)">
-          <div class="item-pic" ref="itemPic"><img :src="item.picUrl"></div>
+          <div class="item-pic" ref="itemPic"><img :src="baseUrl + item.picUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -70,7 +70,8 @@
         openChoose: false,
         cat: 1001,
         initial: '',
-        offset: 0
+        offset: 0,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

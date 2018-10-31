@@ -39,7 +39,7 @@
       </ul>
     </div>
     <footer class="user-msg">
-      <img :src="$store.state.userCenter.userInfo.avatarUrl"
+      <img :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"
            class="user-avator"
            @click="userCenter" alt="请登入">
       <span class="user-name">{{$store.state.userCenter.userInfo.nickname}}</span>
@@ -57,7 +57,8 @@
     data(){
       return{
         playList: [],
-        type: 2
+        type: 2,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

@@ -28,7 +28,7 @@
         <li class="recommend-item"
             v-for="(item, index) in playlist"
             @click="$router.push(`/songList?id=${item.id}`)">
-          <div class="item-pic" ref="itemPic"><img :src="item.coverImgUrl"></div>
+          <div class="item-pic" ref="itemPic"><img :src="baseUrl + item.coverImgUrl"></div>
           <div class="item-name">{{item.name}}</div>
         </li>
       </ul>
@@ -51,7 +51,8 @@
         catlist: [],
         openChoose: false,
         name: '全部',
-        offset: 0
+        offset: 0,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

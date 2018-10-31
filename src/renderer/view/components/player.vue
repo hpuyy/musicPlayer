@@ -1,7 +1,7 @@
 <template>
   <div class="player-bd">
     <div class="pic" ref="pic">
-      <img :src="pic">
+      <img :src="baseUrl + pic">
     </div>
     <div class="player-control">
       <div class="pre T-SD-H T-BG" @click="control('prev')">&#xe6e1;</div>
@@ -88,7 +88,8 @@
         musicUrl: [],
         playInfo: {},
         playerControl: false,
-        listCon: false
+        listCon: false,
+        baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
     created(){

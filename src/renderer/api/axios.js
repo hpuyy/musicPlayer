@@ -13,7 +13,7 @@ axios.defaults.baseURL = 'http://localhost:9083';//项目中请求处理文件�
  *2、请求配置错误(不符合axios的规范)
  不发请求
  **/
-/*axios.interceptors.request.use(function(request){
+axios.interceptors.request.use(function(request){
   if(request.method == 'post'){//post请求参数序列化处理
     for(let item in request.data){
       if(typeof (request.data[item]) === 'object'){
@@ -27,16 +27,36 @@ axios.defaults.baseURL = 'http://localhost:9083';//项目中请求处理文件�
   console.log('请求错误：' + error);
 });
 
-/!**响应拦截
+/**响应拦截
  *1、后端正常响应（成功或失败）：
  resolve(data)
  data:{Tag,Result,Message}
  *2、后端响应失败（没有正常收到后端返回值）
  reject(error)
  error:浏览器响应失败返回值，包括code、message
- **!/
+ **/
 
-axios.interceptors.response.use(function(response){
+/*axios.interceptors.request.use(function(req){
+  console.log(req);
+  return req;
+},function(error){
+  let errorMsg = error;
+  if(error.message.indexOf('timeout') > -1){
+    errorMsg = '请求超时';
+  }else{
+    switch(error.message){
+      case 'Network Error':
+        errorMsg = '网络无法连接';
+        break;
+      default:
+        break;
+    }
+  }
+  console.log('响应失败：' + errorMsg);
+  return Promise.reject(error);
+});*/
+
+/*axios.interceptors.response.use(function(response){
   if(!response.data){
     console.log('请求失败，没有返回数据');
   }else{
