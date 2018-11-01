@@ -6,7 +6,7 @@ let fs = require('fs');
 router.get('/res', function (req, res) {
   let url = req.query.url;
   let name = url.substring(url.lastIndexOf('/') + 1);
-  const dstpath = 'C:\\Program Files\\cloud-music\\cache' + '/' + name;
+  const dstpath = 'C:\\Program Files\\cloud-music\\cache' + '\\' + name;
   downloadUrl(url, dstpath).then(() => {
     res.sendFile(dstpath);
   });

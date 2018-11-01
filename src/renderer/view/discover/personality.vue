@@ -11,7 +11,6 @@
         <swiper-slide><img :src="baseUrl + banner[4].picUrl"></swiper-slide>
         <swiper-slide><img :src="baseUrl + banner[5].picUrl"></swiper-slide>
         <swiper-slide><img :src="baseUrl + banner[6].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[7].picUrl"></swiper-slide>
       </swiper>
       <!--以下看需要添加-->
       <div class="swiper-button-next" v-show="swiperNav"></div>
