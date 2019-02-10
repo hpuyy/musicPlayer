@@ -97,8 +97,10 @@ app.on('window-all-closed', () => {
   }
 });
 
+require('./node/app');
+
 app.on('activate', () => {
   if (mainWindow === null) {
-    createWindow()
+    createWindow();
   }
 });

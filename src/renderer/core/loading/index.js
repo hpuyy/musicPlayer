@@ -15,12 +15,5 @@ export default function (remove = false) {
     Container.removeChild(document.getElementById('loading-nai'));
     return
   }
-  let timer = setTimeout(() => {
-    // location.reload();
-    this.$alert("登入超时，将再次尝试...").exec.then(() => {
-      location.reload();
-    });
-  },10000);
   Container.appendChild(el);
-  return timer
 }

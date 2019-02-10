@@ -5,7 +5,7 @@
           @click="back">
           &#xe641;
     </span>
-    <span class="title">网易云音乐</span>
+    <span class="title">云音乐</span>
     <div class="frame-opt">
       <span class="theme">&#xe664;</span>
       <colorPicker v-model="color" id="picker" class="picker" @change="setTheme"></colorPicker>
@@ -20,7 +20,8 @@
            v-else>
           &#xe7fe;
       </div>
-      <div class="item close" @click="changeSize('close')">&#xe602;</div>
+      <div class="item close"
+           @click="changeSize('close')">&#xe602;</div>
     </div>
   </header>
 </template>
@@ -44,20 +45,30 @@
     },
     methods:{
       setTheme(){
+        let link = document.createElement("style");
+        let head = document.getElementsByTagName("head")[0];
+        document.getElementById('theme') && head.removeChild(document.getElementById('theme'));
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.id = "theme";
+        head.appendChild(link);
+
         let themeData = {
           color: this.color,
           image: ''
         };
+
+        let len = document.styleSheets.length - 1;
         localStorage.setItem('Theme', JSON.stringify(themeData));
-        document.styleSheets[0].addRule('.T-BG', `background-color: ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-FT', `color: ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-FT-H:hover', `color: ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-BD', `border-color: ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-SD', `box-shadow: 0 0 5px 1px ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-SD-H:hover', `box-shadow: 0 0 5px 1px ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-TSD-H:hover', `text-shadow: 0 0 5px ${this.color} !important`);
-        document.styleSheets[0].addRule('.T-TSD', `text-shadow: 0 0 5px ${this.color} !important`);
-        document.styleSheets[0].addRule('.swiper-pagination-bullet-active', `border-color: ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-BG', `background-color: ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-FT', `color: ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-FT-H:hover', `color: ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-BD', `border-color: ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-SD', `box-shadow: 0 0 5px 1px ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-SD-H:hover', `box-shadow: 0 0 5px 1px ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-TSD-H:hover', `text-shadow: 0 0 5px ${this.color} !important`);
+        document.styleSheets[len].addRule('.T-TSD', `text-shadow: 0 0 5px ${this.color} !important`);
+        document.styleSheets[len].addRule('.swiper-pagination-bullet-active', `border-color: ${this.color} !important`);
       },
       changeSize(type){
         switch (type){
@@ -70,7 +81,9 @@
             BrowserWindow.getFocusedWindow().restore();
             this.isMaxSize = false;
             break;
-          case 'close': BrowserWindow.getFocusedWindow().hide(); break;
+          case 'close': {
+            BrowserWindow.getFocusedWindow().hide();
+          } break;
         }
       },
       back(){
@@ -141,10 +154,10 @@
       height: 30px;
       line-height: 30px;
       text-align: center;
+      cursor: pointer;
     }
     .item:hover{
       background-color: rgba(0, 0, 0, 0.2);
-      cursor: pointer;
     }
     .min{
       font-size: 12px;

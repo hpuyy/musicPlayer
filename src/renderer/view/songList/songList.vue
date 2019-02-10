@@ -81,11 +81,10 @@
       this.init();
     },
     mounted(){
-      this.timer = this.$loading();
+      this.$loading();
     },
     updated(){
       if(this.loading){
-        clearTimeout(this.timer);
         this.$loading(true);
         this.loading = false;
       }

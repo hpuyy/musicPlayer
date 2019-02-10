@@ -3,14 +3,8 @@
     <div class="carousel"
          @mouseover="swipers('in')"
          @mouseout="swipers('out')">
-      <swiper :options="swiperOption">
-        <swiper-slide><img :src="baseUrl + banner[0].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[1].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[2].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[3].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[4].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[5].picUrl"></swiper-slide>
-        <swiper-slide><img :src="baseUrl + banner[6].picUrl"></swiper-slide>
+      <swiper :options="swiperOption" v-if="showBanner">
+        <swiper-slide v-for="item in banner"><img :src="baseUrl + item.picUrl"></swiper-slide>
       </swiper>
       <!--以下看需要添加-->
       <div class="swiper-button-next" v-show="swiperNav"></div>
@@ -97,6 +91,7 @@
         },
         swiperNav: false,
         banner: [],
+        showBanner: false,
         personalized: [],
         loading: true,
         timer: '',
@@ -108,14 +103,15 @@
       swiperSlide: swiperSlide
     },
     created(){
-      this.timer = this.$loading();
+      this.showBanner = false;
+      this.$loading();
       Banner().then((res)=>{
         if(this.loading){
-          clearTimeout(this.timer);
           this.$loading(true);
           this.loading = false;
         }
-        this.banner = res.banners
+        this.banner = res.banners;
+        this.showBanner = true;
       });
 
       Personalized().then((res)=>{

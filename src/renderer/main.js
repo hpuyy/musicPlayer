@@ -7,7 +7,7 @@ import loading from './core/loading'
 import colorPicker from './core/vue-color-picker'
 
 Vue.use(colorPicker);
-require('./node/app');
+// require('./node/app');
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
