@@ -39,10 +39,13 @@
       </ul>
     </div>
     <footer class="user-msg">
-      <img :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"
+      <img v-if="'static/icon.ico' !== $store.state.userCenter.userInfo.avatarUrl" :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"
            class="user-avator"
-           @click="userCenter" alt="请登入">
-      <span class="user-name">{{$store.state.userCenter.userInfo.nickname}}</span>
+           alt="请登入">
+      <img v-else :src="$store.state.userCenter.userInfo.avatarUrl"
+           class="user-avator"
+           alt="请登入">
+      <span @click="userCenter" class="user-name">{{$store.state.userCenter.userInfo.nickname}}</span>
       <span class="icon-setting">&#xe65b;</span>
       <span class="icon-mail">&#xe68b;</span>
     </footer>

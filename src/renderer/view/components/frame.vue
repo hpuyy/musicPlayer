@@ -38,7 +38,6 @@
     },
     created(){
       this.color = JSON.parse(localStorage.getItem('Theme')).color;
-      this.setTheme;
     },
     mounted(){
       this.setTheme();
@@ -47,6 +46,8 @@
       setTheme(){
         let link = document.createElement("style");
         let head = document.getElementsByTagName("head")[0];
+
+        //设置主题色时现将原先的样式文件移除，虽然样式之间可以覆盖，但为了避免添加过多，还是清一下。
         document.getElementById('theme') && head.removeChild(document.getElementById('theme'));
         link.rel = "stylesheet";
         link.type = "text/css";
@@ -55,7 +56,6 @@
 
         let themeData = {
           color: this.color,
-          image: ''
         };
 
         let len = document.styleSheets.length - 1;

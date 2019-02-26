@@ -1,7 +1,8 @@
 <template>
   <div class="player-bd">
     <div class="pic" ref="pic">
-      <img :src="baseUrl + pic">
+      <img v-if="pic !== 'static/icon.ico'" :src="baseUrl + pic">
+      <img else :src="pic">
     </div>
     <div class="player-control">
       <div class="pre T-SD-H T-BG" @click="control('prev')">&#xe6e1;</div>

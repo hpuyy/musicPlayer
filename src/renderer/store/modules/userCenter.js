@@ -1,6 +1,6 @@
 let state = {
   show: false,
-  userInfo: JSON.parse(localStorage.getItem('userInfo')) || {nickname: '尚未未登入', avatarUrl: 'static/icon.ico'}
+  userInfo: JSON.parse(localStorage.getItem('userInfo')) || {nickname: '点我登入！', avatarUrl: 'static/icon.ico'}
 };
 
 let getters = {

@@ -23,8 +23,6 @@ module.exports = (req, res, createWebAPIRequest, request) => {
       cookieStr.split(";").forEach(item => {
         cookie.push(item + ";Path=/");
       });
-      console.log(cookie);
-      localStorage.setItem('cookie', JSON.stringify(cookie));
       res.set({
         "Set-Cookie": cookie
       });
