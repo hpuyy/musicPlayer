@@ -17,7 +17,7 @@ module.exports = (req, res, createWebAPIRequest, request) => {
         const banners = pattern.exec(body)[1];
         res.send(JSON.stringify(eval(`({code:200,banners:${banners}})`)));
       } catch (error) {
-        res.status(502).send("fetch error");
+        res.status(502).send("fetch error:" + error);
       }
     }
   });

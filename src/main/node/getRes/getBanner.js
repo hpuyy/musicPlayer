@@ -6,7 +6,8 @@ let fs = require('fs');
 router.get('/res', function (req, res) {
   let url = req.query.url;
   let name = url.substring(url.lastIndexOf('/') + 1);
-  const dstpath = 'D:\\cloud-music\\cache' + '\\' + name;
+  const dstpath = 'D:\\cloud-music\\banner' + '\\' + name;
+  console.log("ooooooooooooooooooooooooooooooooooooooo" + dstpath)
   downloadUrl(url, dstpath).then(() => {
     res.sendFile(dstpath);
   });
@@ -15,7 +16,6 @@ router.get('/res', function (req, res) {
 function downloadUrl(url, path) {
   return new Promise((resolve) => {
     fs.exists(path, (status) => {
-      console.log("================" + status, path)
       if(status) resolve();
       else{
         request(url).pipe(fs.createWriteStream(path))

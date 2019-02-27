@@ -29,7 +29,8 @@ function createWindow () {
   /**
    * Initial window options
    */
-  win = new electron.BrowserWindow({width: 800, height: 550, frame: false, minWidth: 755, icon: path.join(__static, 'icon.ico')});
+  let width = process.env.NODE_ENV === 'development'? 1150 : 850;
+  win = new electron.BrowserWindow({width: width, height: 550, frame: false, minWidth: 755, icon:    path.join(__static, 'icon.ico')});
 
   win.loadURL(winURL);
 

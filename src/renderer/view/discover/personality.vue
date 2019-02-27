@@ -4,7 +4,7 @@
          @mouseover="swipers('in')"
          @mouseout="swipers('out')">
       <swiper :options="swiperOption" v-if="showBanner">
-        <swiper-slide v-for="item in banner"><img :src="baseUrl + item.picUrl"></swiper-slide>
+        <swiper-slide v-for="item in banner"><img :src="bannerUrl + item.picUrl"></swiper-slide>
       </swiper>
       <!--以下看需要添加-->
       <div class="swiper-button-next" v-show="swiperNav"></div>
@@ -95,7 +95,9 @@
         personalized: [],
         loading: true,
         timer: '',
-        baseUrl: 'http://localhost:9083/res/res?url='
+        reqCount: 0,
+        baseUrl: 'http://localhost:9083/res/res?url=',
+        bannerUrl: 'http://localhost:9083/bannerRes/res?url='
       }
     },
     components:{
@@ -105,15 +107,7 @@
     created(){
       this.showBanner = false;
       this.$loading();
-      Banner().then((res)=>{
-        if(this.loading){
-          this.$loading(true);
-          this.loading = false;
-        }
-        this.banner = res.banners;
-        this.showBanner = true;
-      });
-
+      this.reqBanner();
       Personalized().then((res)=>{
         this.personalized = res.result.slice(0,15);
       });
@@ -132,6 +126,29 @@
         else{
           this.swiperNav = false;
         }
+      },
+      reqBanner(){
+        this.reqCount ++;
+        Banner().then((res)=>{
+          if(this.loading){
+            this.$loading(true);
+            this.loading = false;
+          }
+          this.banner = res.banners;
+          localStorage.setItem('banner', JSON.stringify(res.banners));
+          this.showBanner = true;
+        }, () => {
+          if(this.reqCount >= 3){
+            this.banner = JSON.parse(localStorage.getItem('banner'));
+            this.showBanner = true;
+            if(this.loading){
+              this.$loading(true);
+              this.loading = false;
+            }
+            return;
+          }
+          this.reqBanner();
+        });
       }
     }
   }

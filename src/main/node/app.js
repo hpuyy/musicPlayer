@@ -5,6 +5,19 @@ const fs = require("fs");
 const app1 = express();
 let cache = apicache.middleware;
 
+fs.mkdir('D:\\cloud-music',function(error){
+  console.warn(error);
+  if(error) return false;
+});
+fs.mkdir('D:\\cloud-music\\cache',function(error){
+  console.warn(error);
+  if(error) return false;
+});
+fs.mkdir('D:\\cloud-music\\banner',function(error){
+  console.warn(error);
+  if(error) return false;
+});
+
 // 跨域设置
 app1.all("*", function(req, res, next) {
   if (req.path !== "/") {
@@ -16,11 +29,6 @@ app1.all("*", function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
   }
   next();
-});
-
-fs.mkdir('D:\\Program Files\\cloud-music\\cache',function(error){
-  console.warn(error);
-  if(error) return false;
 });
 
 const onlyStatus200 = (req, res) => res.statusCode === 200;
@@ -53,6 +61,7 @@ const Wrap = fn => (req, res) => fn(req, res, createWebAPIRequest, request);
 /*******************************************************************/
 app1.use('/r', require('./readAudio/index'));
 app1.use('/res', require('./getRes/index'));
+app1.use('/bannerRes', require('./getRes/getBanner'));
 
 app1.use('/personalized/newsong', Wrap(require("./router/personalized_newsong")));
 app1.use('/music/url', Wrap(require("./router/musicUrl")));
