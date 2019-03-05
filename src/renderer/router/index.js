@@ -36,7 +36,7 @@ export default new Router({
       path: '/songList',
       name: 'songList',
       component: songList
-    },,{
+    },{
       path: '/artist/songList',
       name: 'artistSongList',
       component: artistSongList

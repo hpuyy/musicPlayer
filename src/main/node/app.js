@@ -82,6 +82,7 @@ app1.use('/like', Wrap(require("./router/like")));
 app1.use('/search', Wrap(require("./router/search")));
 app1.use('/artist/list', Wrap(require("./router/artist_list")));
 app1.use('/artists', Wrap(require("./router/artists")));
+app1.use('/lyric', Wrap(require("./router/lyric")));
 
 /*app.get('/b', function (req, res) {
   res.send(JSON.stringify({name:req.query.name, pwd: req.query.pwd}));

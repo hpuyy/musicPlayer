@@ -41,6 +41,18 @@
     },
     mounted(){
       this.setTheme();
+      let el = document.getElementsByClassName('item');
+      Array.prototype.map.call(el, (item) => {
+        item.onmouseover = () => {
+          item.classList.add('opt-hover');
+        };
+        item.onmouseleave = () => {
+          item.classList.remove('opt-hover');
+        };
+        item.onclick = () => {
+          item.classList.remove('opt-hover');
+        };
+      })
     },
     methods:{
       setTheme(){
@@ -156,7 +168,7 @@
       text-align: center;
       cursor: pointer;
     }
-    .item:hover{
+    .opt-hover{
       background-color: rgba(0, 0, 0, 0.2);
     }
     .min{
