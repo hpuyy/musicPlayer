@@ -40,6 +40,9 @@
         searchTag: false
       }
     },
+    activated(){
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+    },
     methods:{
       enterPress(){
         if(event.keyCode == 13){

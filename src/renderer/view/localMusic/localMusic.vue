@@ -59,6 +59,9 @@
       }
     },
     created(){
+
+    },
+    activated(){
       this.$store.dispatch('back/setFullPath', this.$route.fullPath);
     },
     methods:{

@@ -1,7 +1,9 @@
 <template>
   <div class="player-bd">
     <div class="player-wrap">
-      <div class="pic" ref="pic">
+      <div class="pic T-SD-H"
+           ref="pic"
+           @click="showPlayPage">
         <img v-if="pic !== 'static/icon.ico'" :src="baseUrl + pic">
         <img else :src="pic">
       </div>
@@ -63,7 +65,9 @@
         </div>
       </transition>
     </div>
-    <playPage :lyric="lyric" :playInfo="playInfo" ref="playPage"></playPage>
+    <transition name="slide-up">
+      <playPage v-show="$store.state.back.fullPath[0] == 'playPage'" :lyric="lyric" :playInfo="playInfo" ref="playPage"></playPage>
+    </transition>
   </div>
 </template>
 
@@ -97,6 +101,7 @@
         playInfo: {},
         playerControl: false,
         listCon: false,
+        isBack: false,
         baseUrl: 'http://localhost:9083/res/res?url='
       }
     },
@@ -115,7 +120,7 @@
      this.getMusic(this.$store.state.songList.songList[0].id, true);
      setInterval(() => {
        this.progress();
-     }, 10)
+     }, 100)
     },
     watch: {
       '$store.state.songList.status': function (val, old) {
@@ -211,8 +216,11 @@
           this.touchStart = e.pageX;
           this.total = this.$refs.progress.offsetWidth;
         } else if (action === 'end') {
+          if (this.auto) return;
           this.$refs.music.currentTime = this.$refs.music.duration * this.percent.replace('%', '') / 100;
           this.auto = true;
+          this.lyricTemp = [...this.lyric];
+          this.isBack = true;
         } else {
           if (this.auto) return;
           let change = e.pageX - this.touchStart;
@@ -227,10 +235,17 @@
         this.currentTime = this.$refs.music.currentTime || 0;
         this.percent = this.currentTime / this.duration * 100 + '%';
         this.durationShow = this.timeTransform(this.duration);
-        this.currentTimeShow = this.timeTransform(this.currentTime);
-        if(this.lyricTemp[0] && this.lyricTemp[0].time <= `[${this.currentTimeShow.slice(0, 8)}]`){
-          this.$refs.playPage.$emit('lyMarqueen', this.lyricTemp[0].time);
-          this.lyricTemp.shift();
+        this.currentTimeShow = this.timeTransform(this.currentTime + 0.5);
+
+        if(this.$store.state.back.fullPath[0] == 'playPage'){
+          for(let i in this.lyricTemp){
+            if(this.lyricTemp[i] && this.lyricTemp[i].time <= `[${this.currentTimeShow.slice(0, 8)}]`){
+              this.$refs.playPage.$emit('lyMarqueen', [this.lyricTemp[i].time, this.isBack]);
+              this.lyricTemp.shift();
+              this.isBack = false;
+            }
+            else break;
+          }
         }
 
         this.$refs.music.addEventListener('ended', () => {
@@ -272,6 +287,14 @@
           }
           this.lyricTemp = [...this.lyric];
         });
+      },
+      showPlayPage() {
+        if(this.$store.state.back.fullPath[0] === 'playPage'){
+          this.$store.dispatch('back/removePath');
+        }
+        else{
+          this.$store.dispatch('back/setFullPath', 'playPage');
+        }
       }
     },
     components: {
@@ -361,7 +384,11 @@
     .pic {
       width: 60px;
       height: 60px;
+      cursor: pointer;
 
+      &:hover{
+        box-shadow: 0 0 16px 3px var(--ThemeColor) !important;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -508,5 +535,15 @@
   }
   .player-wrap{
     background-color: #fff;
+  }
+  .slide-up-enter-active, .slide-up-leave-active{
+    transition: all .2s;
+  }
+  .slide-up-leave-to{
+    transform: translate3d(0, 30%, 0);
+    opacity: 0;
+  }
+  .slide-up-enter{
+    opacity: .4;
   }
 </style>

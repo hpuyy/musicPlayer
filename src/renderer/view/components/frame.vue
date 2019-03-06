@@ -1,7 +1,7 @@
 <template>
   <header class="frame-head T-BG">
     <span class="frame-head-back"
-          v-show="$route.fullPath !== '/discover'"
+          v-show="$store.state.back.fullPath.length > 1"
           @click="back">
           &#xe641;
     </span>
@@ -81,6 +81,7 @@
         document.styleSheets[len].addRule('.T-TSD-H:hover', `text-shadow: 0 0 5px ${this.color} !important`);
         document.styleSheets[len].addRule('.T-TSD', `text-shadow: 0 0 5px ${this.color} !important`);
         document.styleSheets[len].addRule('.swiper-pagination-bullet-active', `border-color: ${this.color} !important`);
+        document.styleSheets[len].addRule(':root', `--ThemeColor: ${this.color} !important`);
       },
       changeSize(type){
         switch (type){
@@ -99,7 +100,14 @@
         }
       },
       back(){
-        this.$router.push(this.$store.state.back.fullPath[1] || '/');
+        if(this.$store.state.back.fullPath[0] == 'playPage'){
+
+        }
+        else{
+          this.$router.push(this.$store.state.back.fullPath[1] || '/');
+          this.$store.dispatch('back/removePath');
+        }
+
         this.$store.dispatch('back/removePath');
       }
     }

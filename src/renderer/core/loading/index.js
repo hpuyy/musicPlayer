@@ -12,7 +12,12 @@ let Container = document.body;
 
 export default function (remove = false) {
   if(remove) {
-    Container.removeChild(document.getElementById('loading-nai'));
+    try {
+      Container.removeChild(document.getElementById('loading-nai'));
+    }
+    catch (e) {
+
+    }
     return
   }
   Container.appendChild(el);

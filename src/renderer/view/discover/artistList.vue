@@ -82,6 +82,10 @@
     mounted(){
       this.$loading();
     },
+    activated(){
+      this.$store.dispatch('back/removePath');
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+    },
     updated(){
       if(this.loading){
         this.$loading(true);

@@ -51,16 +51,40 @@
     mounted() {
       this.$on('lyMarqueen', (ly) => {this.lyMarqueen(ly)});
     },
+    activated(){
+      this.$store.dispatch('back/setFullPath', 'playPage');
+    },
     watch: {
       lyric: function(val) {
         this.scrollInit = -180;
       }
     },
     methods: {
-      lyMarqueen(ly) {
+      lyMarqueen(arg) {
+        let ly = arg[0];
         this.currentTime = ly;
         this.scrollInit += 30;
-        if(this.scrollInit >= 0) this.$refs.article.scrollTop = this.scrollInit;
+        if(arg[1]) {
+          this.scrollInit = -150;
+          this.$refs.article.scrollTop = 0;
+        }
+        if(this.scrollInit >= 0) {
+          let timer = setInterval(() => {
+            if(Math.abs(this.$refs.article.scrollTop - this.scrollInit) > 90){
+              this.$refs.article.scrollTop = this.scrollInit;
+              clearInterval(timer);
+            }
+            else if(this.$refs.article.scrollTop > this.scrollInit){
+              this.$refs.article.scrollTop -= 1;
+            }
+            else if(this.$refs.article.scrollTop < this.scrollInit){
+              this.$refs.article.scrollTop += 1;
+            }
+            else{
+              clearInterval(timer);
+            }
+          }, 15)
+        }
       }
     }
   }
@@ -82,7 +106,7 @@
     }
     .left-wrap{
       float: left;
-      margin: 50px 80px 0 60px;
+      margin: 50px 100px 0 100px;
       .album{
         width: 260px;
         height: 260px;
