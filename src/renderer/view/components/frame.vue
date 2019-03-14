@@ -85,7 +85,7 @@
       },
       changeSize(type){
         switch (type){
-          case 'min':BrowserWindow.getFocusedWindow().minimize(); break;
+          case 'min': BrowserWindow.getFocusedWindow().minimize(); break;
           case 'max':
             BrowserWindow.getFocusedWindow().maximize();
             this.isMaxSize = true;

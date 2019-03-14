@@ -43,18 +43,17 @@
       }
     },
     created(){
-      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+      // this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+    },
+    mounted(){
+      // this.$loading();
     },
     activated(){
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+      console.log(this.$store.state.back.fullPath)
       Daily().then((res)=>{
         this.songList = res.recommend;
       });
-    },
-    mounted(){
-      this.$loading();
-    },
-    activated(){
-      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
     },
     updated(){
       if(this.loading){

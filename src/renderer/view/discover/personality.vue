@@ -112,6 +112,11 @@
         this.personalized = res.result.slice(0,15);
       });
     },
+    activated() {
+      this.$store.dispatch('back/empty');
+      this.$store.dispatch('back/setFullPath', this.$route.fullPath);
+      console.log(this.$store.state.back.fullPath);
+    },
     methods:{
       /*clearCookie(){
         let myDate=new Date();

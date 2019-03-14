@@ -21,11 +21,17 @@ let mutations = {
   show(state, data){
     state.show = data;
   },
+
   removePath(state){
     state.fullPath.shift();
   },
+
   setFullPath(state, url){
     state.fullPath.unshift(url);
+  },
+
+  empty(){
+    state.fullPath = [];
   }
 };
 
@@ -33,11 +39,17 @@ let actions = {
   show({commit}, data){
     commit('show', data);
   },
+
   removePath({commit}){
     commit('removePath');
   },
+
   setFullPath({commit}, url){
     commit('setFullPath', url);
+  },
+
+  empty({commit}){
+    commit('empty');
   }
 };
 
