@@ -5,7 +5,7 @@
         <div class="content">账号</div>
         <div class="edit" v-show="userInfo != undefined">编辑</div>
       </header>
-      <div class="user-center-login" v-show="$store.state.userCenter.userInfo.userId == undefined">
+      <div class="user-center-login" v-if="$store.state.userCenter.userInfo.userId == undefined">
         <div class="login-item">
           <input type="text" placeholder="请输入手机号" v-model="phone">
         </div>
@@ -16,50 +16,53 @@
           <input type="button" value="登入" class="btn T-BG" @click="login">
         </div>
       </div>
-      <div class="user-info">
-        <div class="user-info-item">
-          <div class="avator"><img :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"></div>
-          <div class="nickname">{{$store.state.userCenter.userInfo.nickname}}</div>
-          <div class="reg"><span>&#xe6cb;</span>签到</div>
-        </div>
-        <div class="user-info-item">
-          <div class="info-item-msg">
-            <div class="msg-num">{{detail.eventCount}}</div>
-            <div class="msg-name">动态</div>
+      <template v-else>
+        <div class="user-info">
+          <div class="user-info-item">
+            <div class="avator"><img :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"></div>
+            <div class="nickname">{{$store.state.userCenter.userInfo.nickname}}</div>
+            <div class="reg"><span>&#xe6cb;</span>签到</div>
           </div>
-          <div class="info-item-msg msg-center">
-            <div>{{detail.follows}}</div>
-            <div>关注</div>
-          </div>
-          <div class="info-item-msg">
-            <div>{{detail.followeds}}</div>
-            <div>粉丝</div>
+          <div class="user-info-item">
+            <div class="info-item-msg">
+              <div class="msg-num">{{detail.eventCount}}</div>
+              <div class="msg-name">动态</div>
+            </div>
+            <div class="info-item-msg msg-center">
+              <div>{{detail.follows}}</div>
+              <div>关注</div>
+            </div>
+            <div class="info-item-msg">
+              <div>{{detail.followeds}}</div>
+              <div>粉丝</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="user-grade-bd">
-        <div class="user-grade-item">
-          <span class="icon-grade">&#xe6cf;</span>
-          <span class="grade">我的等级</span>
-          <span class="icon-right">&#xe617;</span>
-          <span class="item-num">lv.{{level}}</span>
-        </div>
-        <div class="user-grade-item">
-          <span class="icon-vip">&#xe608;</span>
-          <span class="grade">会员中心</span>
-          <span class="icon-right">&#xe617;</span>
-          <span class="item-num">
+        <div class="user-grade-bd">
+          <div class="user-grade-item">
+            <span class="icon-grade">&#xe6cf;</span>
+            <span class="grade">我的等级</span>
+            <span class="icon-right">&#xe617;</span>
+            <span class="item-num">lv.{{level}}</span>
+          </div>
+          <div class="user-grade-item">
+            <span class="icon-vip">&#xe608;</span>
+            <span class="grade">会员中心</span>
+            <span class="icon-right">&#xe617;</span>
+            <span class="item-num">
             <span v-if="detail.vipType == 0">未订购</span>
             <span v-else>已订购</span>
           </span>
+          </div>
+          <div class="user-grade-item" @click="test">
+            <span class="icon-cart">&#xe696;</span>
+            <span class="grade">积分商城</span>
+            <span class="icon-right">&#xe617;</span>
+            <span class="item-num">未知</span>
+          </div>
         </div>
-        <div class="user-grade-item" @click="test">
-          <span class="icon-cart">&#xe696;</span>
-          <span class="grade">积分商城</span>
-          <span class="icon-right">&#xe617;</span>
-          <span class="item-num">未知</span>
-        </div>
-      </div>
+        <div class="user-center-logout" @click="logout">注销</div>
+      </template>
     </div>
   </transition>
 </template>
@@ -113,6 +116,13 @@
           this.$alert('登入失败！', '未知错误');
           localStorage.removeItem('userInfo');
         })
+      },
+      logout(){
+        let myDate = new Date();
+        myDate.setTime(-1000);
+        document.cookie = '__csrf' + "=''; expires=" + myDate.toGMTString();
+        localStorage.removeItem('userInfo');
+        location.reload();
       }
     }
   }
@@ -259,6 +269,21 @@
           margin-left: 8px;
           color: #828282;
         }
+      }
+    }
+    .user-center-logout{
+      text-align: center;
+      margin: 2rem auto;
+      line-height: 30px;
+      width: 100px;
+      border: 1px solid #7e7e7e;
+      color: #757575;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover{
+        background-color: #ff1a44;
+        color: #fff;
+        border-color: transparent;
       }
     }
   }

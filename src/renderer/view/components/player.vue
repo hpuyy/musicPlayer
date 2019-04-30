@@ -98,7 +98,9 @@
         musicUrl: [],
         lyric: [],
         lyricTemp: [],
-        playInfo: {},
+        playInfo: {
+          album: '未知'
+        },
         playerControl: false,
         listCon: false,
         isBack: false,
@@ -132,7 +134,9 @@
           } else {
             if (data.isLocal) {
               this.$refs.music.src = 'http://localhost:9083' + data.localMusic[data.index].url;
-              this.playInfo = data.localMusic[data.index];
+              this.playInfo = Object.assign({
+                album: '未知'
+              }, data.localMusic[data.index]);
               this.$refs.music.play();
               this.pic = 'static/icon.ico';
               return;

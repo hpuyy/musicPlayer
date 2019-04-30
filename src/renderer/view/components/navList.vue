@@ -38,17 +38,18 @@
         </li>
       </ul>
     </div>
-    <footer class="user-msg">
+    <footer class="user-msg" @click="userCenter">
       <img v-if="'static/icon.ico' !== $store.state.userCenter.userInfo.avatarUrl" :src="baseUrl + $store.state.userCenter.userInfo.avatarUrl"
            class="user-avator"
            alt="请登入">
       <img v-else :src="$store.state.userCenter.userInfo.avatarUrl"
            class="user-avator"
            alt="请登入">
-      <span @click="userCenter" class="user-name">{{$store.state.userCenter.userInfo.nickname}}</span>
+      <span class="user-name">{{$store.state.userCenter.userInfo.nickname}}</span>
       <span class="icon-setting">&#xe65b;</span>
       <span class="icon-mail">&#xe68b;</span>
     </footer>
+    <div class="user-center-bd" v-show="$store.state.userCenter.show" @click="userCenter"></div>
   </div>
 </template>
 
@@ -274,6 +275,14 @@
       font-family: iconfont;
       float: right;
     }
+  }
+  .user-center-bd{
+    position: fixed;
+    width: calc(100% - 320px);
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
   }
 }
 </style>

@@ -2,7 +2,7 @@ import axios from '../axios';
 
 export default function (id) {
   const require = new Promise((resolve, reject) => {
-    axios.get('/music/url',{
+    axios.get('/song/url',{
       params:{
         id: id
       }

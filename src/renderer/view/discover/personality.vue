@@ -4,7 +4,7 @@
          @mouseover="swipers('in')"
          @mouseout="swipers('out')">
       <swiper :options="swiperOption" v-if="showBanner">
-        <swiper-slide v-for="item in banner"><img :src="bannerUrl + item.picUrl"></swiper-slide>
+        <swiper-slide v-for="item in banner"><img :src="bannerUrl + item.imageUrl"></swiper-slide>
       </swiper>
       <!--以下看需要添加-->
       <div class="swiper-button-next" v-show="swiperNav"></div>

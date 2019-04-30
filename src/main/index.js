@@ -19,6 +19,8 @@ let appTray = null;
  */
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+} else {
+  global.__static = require('path').join(__dirname, '../../static').replace(/\\/g, '\\\\')
 }
 
 const winURL = process.env.NODE_ENV === 'development'
@@ -30,7 +32,7 @@ function createWindow () {
    * Initial window options
    */
   let width = process.env.NODE_ENV === 'development'? 1150 : 850;
-  win = new electron.BrowserWindow({width: width, height: 550, frame: false, minWidth: 755, icon:    path.join(__static, 'icon.ico')});
+  win = new electron.BrowserWindow({width: width, height: 550, frame: false, minWidth: 755, icon: path.join(__static, 'icon.ico')});
 
   win.loadURL(winURL);
 
@@ -98,7 +100,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-require('./node/app');
+require('./node/app.js');
 
 app.on('activate', () => {
   if (mainWindow === null) {
