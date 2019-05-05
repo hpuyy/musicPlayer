@@ -31,11 +31,11 @@ Music Player for Windows
 4. 新建 Pull Request
 
 #### 展示
-![个性推荐](http://a3.qpic.cn/psb?/V10WDChT0z0aJG/zAbTbcskzn2hWt2Isx*t.lhwZen0aybc7AwrH1dO2J8!/m/dL4AAAAAAAAA&ek=1&kp=1&pt=0&bo=UgMmAlIDJgIRADc!&tl=3&vuin=1074076483&tm=1557039600&sce=60-4-3&rf=0-0)
-![播放页](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/a3E2GvVqmOjm6rdkI6pR0RxT4t89po1xsc3E8qTPf2I!/m/dL8AAAAAAAAA&ek=1&kp=1&pt=0&bo=UgMmAlIDJgIRADc!&tl=3&vuin=1074076483&tm=1557039600&sce=60-4-3&rf=0-0)
-![歌单](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/IwR5ME4Jlfp4ZKPo.2cMBTYSPWWltQ2M*S2EjRNT3kw!/m/dL8AAAAAAAAA&ek=1&kp=1&pt=0&bo=HAMmAhwDJgIRADc!&tl=3&vuin=1074076483&tm=1557039600&sce=60-4-3&rf=0-0)
-![歌手](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/MG*AihqZtjP8I65C6AJJ4PlnvULqZZksPOHeUTblQE4!/m/dFMBAAAAAAAA&ek=1&kp=1&pt=0&bo=HAMmAhwDJgIRADc!&tl=3&vuin=1074076483&tm=1557039600&sce=60-4-3&rf=0-0)
-![收藏](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/6vAu4L3SsHM2W4*MzmM2C6bfM3s9KoXNO*gjNnJidI8!/m/dL8AAAAAAAAA&ek=1&kp=1&pt=0&bo=HANOAhwDTgIRADc!&tl=3&vuin=1074076483&tm=1557039600&sce=60-4-3&rf=0-0)
+![个性推荐](http://a3.qpic.cn/psb?/V10WDChT0z0aJG/zAbTbcskzn2hWt2Isx*t.lhwZen0aybc7AwrH1dO2J8!/b/dL4AAAAAAAAA&ek=1&kp=1&pt=0&bo=UgMmAlIDJgIRADc!&tl=3&vuin=1074076483&tm=1557039600&sce=60-4-3&rf=viewer_311)
+![播放页](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/a3E2GvVqmOjm6rdkI6pR0RxT4t89po1xsc3E8qTPf2I!/b/dL8AAAAAAAAA&ek=1&kp=1&pt=0&bo=UgMmAlIDJgIRADc!&tl=1&vuin=1074076483&tm=1557039600&sce=50-1-1&rf=viewer_311)
+![歌单](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/IwR5ME4Jlfp4ZKPo.2cMBTYSPWWltQ2M*S2EjRNT3kw!/b/dL8AAAAAAAAA&ek=1&kp=1&pt=0&bo=HAMmAhwDJgIRADc!&tl=1&vuin=1074076483&tm=1557039600&sce=50-1-1&rf=viewer_311)
+![歌手](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/MG*AihqZtjP8I65C6AJJ4PlnvULqZZksPOHeUTblQE4!/b/dFMBAAAAAAAA&ek=1&kp=1&pt=0&bo=HAMmAhwDJgIRADc!&tl=1&vuin=1074076483&tm=1557039600&sce=50-1-1&rf=viewer_311)
+![收藏](http://a4.qpic.cn/psb?/V10WDChT0z0aJG/6vAu4L3SsHM2W4*MzmM2C6bfM3s9KoXNO*gjNnJidI8!/b/dL8AAAAAAAAA&ek=1&kp=1&pt=0&bo=HANOAhwDTgIRADc!&tl=1&vuin=1074076483&tm=1557039600&sce=50-1-1&rf=viewer_311)
 
 #### 实现功能
 - 手机登入（网易账号）
