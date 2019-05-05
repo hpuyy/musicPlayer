@@ -19,8 +19,6 @@ let appTray = null;
  */
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, 'static').replace(/\\/g, '\\\\')
-} else {
-  global.__static = require('path').join(__dirname, '../../static').replace(/\\/g, '\\\\')
 }
 
 const winURL = process.env.NODE_ENV === 'development'

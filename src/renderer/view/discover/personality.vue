@@ -118,12 +118,6 @@
       console.log(this.$store.state.back.fullPath);
     },
     methods:{
-      /*clearCookie(){
-        let myDate=new Date();
-        myDate.setTime(-1000);
-        document.cookie = '__csrf' + "=''; expires="+myDate.toGMTString();
-        localStorage.removeItem('userInfo');
-      },*/
       swipers(type){
         if(type === 'in'){
           this.swiperNav = true;

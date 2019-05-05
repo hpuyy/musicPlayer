@@ -5,7 +5,7 @@
           @click="back">
           &#xe641;
     </span>
-    <span class="title">云音乐</span>
+    <span class="title">网易云音乐</span>
     <div class="frame-opt">
       <span class="theme">&#xe664;</span>
       <colorPicker v-model="color" id="picker" class="picker" @change="setTheme"></colorPicker>

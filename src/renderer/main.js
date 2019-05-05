@@ -7,12 +7,22 @@ import loading from './core/loading'
 import colorPicker from './core/vue-color-picker'
 
 Vue.use(colorPicker);
-// require('./node/app');
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
 Vue.prototype.$alert = alert;
 Vue.prototype.$loading = loading;
+
+// 路由拦截
+router.beforeEach((to, from, next) => {
+  if (to.fullPath === '/recommend/songs') {
+    if(!localStorage.getItem('userInfo')) {
+      alert('该功能需要登入！');
+      return;
+    }
+  }
+  next()
+});
 
 new Vue({
   components: { App },
